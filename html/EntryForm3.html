@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"
+		/>
+		<title>Entry Form3</title>
+		<link rel="stylesheet" href="../css/appstyle.css" />
+		<link
+			rel="stylesheet"
+			href="../css/jquery.mobile-1.5.0-alpha.1.min.css"
+		/>
+		<script
+			type="text/javascript"
+			src="../lib/jquery-3.5.1.min.js"
+		></script>
+		<script
+			type="text/javascript"
+			src="../lib/jquery-migrate-3.0.1.js"
+		></script>
+		<script
+			type="text/javascript"
+			src="../lib/jquery.mobile-1.5.0-alpha.1.min.js"
+		></script>
+		<link rel="stylesheet" href="../../KfxWebSDK/CSS/KfxWebSDK.css" />
+		<script type="text/javascript" src="../lib/bootbox.min.js"></script>
+		<script type="text/javascript" src="../js/app.js"></script>
+		<script
+			type="text/javascript"
+			src="../js/extractionresultscreen.js"
+		></script>
+	</head>
+	<body>
+		<div data-role="page" id="entryform3">
+			<div
+				data-role="toolbar"
+				data-type="header"
+				style="
+					background-color: #00b3b3;
+					color: white;
+					font-size: 0.96em;
+				"
+			>
+				<a
+					href="#"
+					role="button"
+					class="
+						ui-toolbar-header-button-left
+						ui-button
+						ui-button-inline
+						ui-mini
+						ui-corner-all
+					"
+					data-rel="back"
+					><span class="ui-icon ui-icon-arrow-l"></span
+				></a>
+				<h1>KOFAX ONBOARDING</h1>
+			</div>
+			<div data-role="main" style="margin: 0px">
+				<h4 class="entryformheading">Your Information</h4>
+				<div class="center" style="margin: auto; width: 40%">
+					<img
+						class="navImage"
+						src="../images/dot4.svg"
+						width="100%"
+					/>
+				</div>
+				<hr />
+				<div style="padding: 10px; margin: 0px">
+					<form method="post">
+						<div
+							class="ui-field-contain"
+							style="padding: 0px; margin: 0px"
+						>
+							<select style="padding-left: 10px" id="PhoneType">
+								<option label="">Land Line</option>
+								<option label="" selected>Mobile</option>
+							</select>
+							<input
+								name="phonenumber"
+								type="number"
+								onkeypress="Utils.numberValidate(event)"
+								id="phonenumber"
+								placeholder="Phone Number"
+							/>
+							<input
+								name="email"
+								id="email"
+								placeholder="Email Address"
+							/>
+							<input
+								name="citizenship"
+								id="citizenship"
+								placeholder="Country of Citizenship*"
+							/>
+							<input
+								name="ssn"
+								type="number"
+								onkeypress="Utils.ssnValidate(event)"
+								id="ssn"
+								placeholder="Social Security Number*"
+							/>
+						</div>
+					</form>
+
+					<div class="ui-grid-a">
+						<div class="ui-block-a"></div>
+
+						<div id="entryform3next" class="ui-block-b">
+							<a
+								href="#"
+								role="button"
+								style="background-color: #00b3b3; color: white"
+								class="ui-button ui-corner-all ui-shadow"
+								>Next</a
+							><br />
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

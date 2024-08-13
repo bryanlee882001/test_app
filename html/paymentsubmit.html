@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"
+		/>
+		<title>Payment Submit</title>
+		<link rel="stylesheet" href="../css/appstyle.css" />
+		<link
+			rel="stylesheet"
+			href="../css/jquery.mobile-1.5.0-alpha.1.min.css"
+		/>
+		<script
+			type="text/javascript"
+			src="../lib/jquery-3.5.1.min.js"
+		></script>
+		<script
+			type="text/javascript"
+			src="../lib/jquery-migrate-3.0.1.js"
+		></script>
+		<script
+			type="text/javascript"
+			src="../lib/jquery.mobile-1.5.0-alpha.1.min.js"
+		></script>
+		<link rel="stylesheet" href="../../KfxWebSDK/CSS/KfxWebSDK.css" />
+		<script type="text/javascript" src="../lib/bootbox.min.js"></script>
+		<script type="text/javascript" src="../js/app.js"></script>
+	</head>
+	<body>
+		<div data-role="page" id="paymentsubmit">
+			<div
+				data-role="toolbar"
+				data-type="header"
+				style="
+					background-color: #00b3b3;
+					color: white;
+					font-size: 0.96em;
+				"
+			>
+				<a
+					href="#"
+					role="button"
+					class="
+						ui-toolbar-header-button-left
+						ui-button
+						ui-button-inline
+						ui-mini
+						ui-corner-all
+					"
+					data-rel="back"
+					><span class="ui-icon ui-icon-arrow-l"></span
+				></a>
+				<h1>KOFAX ONBOARDING</h1>
+			</div>
+
+			<div data-role="main" style="margin: 0px">
+				<h4 class="entryformheading">Fund Transfer</h4>
+
+				<div class="center" style="margin: auto; width: 40%">
+					<img
+						class="navImage"
+						src="../images/dot5.svg"
+						width="90%"
+					/>
+				</div>
+
+				<hr />
+
+				<div
+					class="floating-box"
+					style="display: inline-block; width: 80px; margin: 10px"
+				>
+					Amount*
+				</div>
+				<div
+					class="floating-box"
+					style="display: inline-block; width: 80px"
+				>
+					<input
+						name="amount"
+						type="number"
+						onkeypress="Utils.amountValidate(event)"
+						id="paymentamount"
+						placeholder="xxx"
+					/>
+				</div>
+				<div
+					class="floating-box"
+					style="display: inline-block; width: 80px"
+				>
+					$
+				</div>
+
+				<div style="padding: 10px; margin: 0px">
+					<h4 id="head">Card Details</h4>
+					<form method="post" id="credit_card_details">
+						<div
+							class="ui-field-contain"
+							style="padding: 0px; margin: 0px"
+						>
+							<h5 id="one">Number</h5>
+							<input
+								id="my_number"
+								type="number"
+								onkeypress="Utils.numberValidate(event)"
+								placeholder="xxxxx...xx"
+							/>
+							<h5 id="two">Name on Card*</h5>
+							<input
+								id="name_on_credit_card"
+								placeholder="xxxxxxxx"
+							/>
+							<h5 id="five">Expiry Date*</h5>
+							<input id="expirydate" placeholder="mm/yy" />
+							<h5 id="four">Security Code*</h5>
+							<input
+								id="security_code"
+								type="number"
+								onkeypress="Utils.numberValidate(event)"
+								placeholder="123"
+							/>
+						</div>
+					</form>
+
+					<form method="post" id="check_details">
+						<div
+							class="ui-field-contain"
+							style="padding: 0px; margin: 0px"
+						>
+							<h5 id="one">Amount</h5>
+							<input
+								id="amount"
+								type="number"
+								onkeypress="Utils.amountValidate(event)"
+								placeholder="xxxxx...xx"
+							/>
+							<h5 id="two">Check Number</h5>
+							<input
+								id="checknumber"
+								type="number"
+								onkeypress="Utils.numberValidate(event)"
+								placeholder="xxxxxxxx"
+							/>
+							<h5 id="three">Payee Name</h5>
+							<input id="payeename" placeholder="xxxxxx" />
+							<h5 id="four">Account Number</h5>
+							<input
+								id="accountnumber"
+								type="number"
+								onkeypress="Utils.numberValidate(event)"
+								placeholder="123"
+							/>
+						</div>
+					</form>
+
+					<div class="ui-grid-solo">
+						<div class="ui-block-a">
+							<a
+								href="#"
+								role="button"
+								id="positionWindow"
+								data-rel="popup"
+								style="background-color: #00b3b3"
+								class="ui-button ui-corner-all ui-shadow"
+								data-position-to="window"
+								><nav>
+									<h4
+										style="
+											color: white;
+											padding: 0px;
+											margin: 0px;
+										"
+									>
+										Submit Application
+									</h4>
+								</nav></a
+							><br />
+						</div>
+					</div>
+
+					<div
+						style="background-color: #00b3b3"
+						data-role="popup"
+						id="mypopupalert"
+						class="ui-content"
+						data-overlay-theme="b"
+					>
+						<h4
+							style="
+								color: white;
+								padding-top: 40px;
+								padding-left: 30px;
+								padding-right: 30px;
+							"
+						>
+							Submit Application
+						</h4>
+						<div class="ui-grid-a">
+							<div class="ui-block-a">
+								<a
+									href="#"
+									role="button"
+									id="yes"
+									class="ui-button ui-corner-all ui-shadow"
+									>Yes</a
+								><br />
+							</div>
+
+							<div class="ui-block-b">
+								<a
+									href="#"
+									role="button"
+									class="ui-button ui-corner-all ui-shadow"
+									data-rel="back"
+									>No</a
+								><br />
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div id="snackbar">Submitted Succesfully</div>
+		</div>
+	</body>
+</html>

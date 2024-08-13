@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"
+		/>
+		<title>Check Capture Region</title>
+		<link rel="stylesheet" href="../css/appstyle.css" />
+		<link
+			rel="stylesheet"
+			href="../css/jquery.mobile-1.5.0-alpha.1.min.css"
+		/>
+		<script
+			type="text/javascript"
+			src="../lib/jquery-3.5.1.min.js"
+		></script>
+		<script
+			type="text/javascript"
+			src="../lib/jquery-migrate-3.0.1.js"
+		></script>
+		<script
+			type="text/javascript"
+			src="../lib/jquery.mobile-1.5.0-alpha.1.min.js"
+		></script>
+		<link rel="stylesheet" href="../css/bootstrap.min.css" />
+		<link rel="stylesheet" href="../css/carousel.css" />
+		<script type="text/javascript" src="../lib/bootstrap.min.js"></script>
+		<script type="text/javascript" src="../js/carousel.js"></script>
+		<script type="text/javascript" src="../js/app.js"></script>
+	</head>
+
+	<body>
+		<div
+			data-role="page"
+			id="cdregionselectionscreen"
+			class="regionscreenbody"
+		>
+			<div
+				data-role="toolbar"
+				data-type="header"
+				style="
+					background-color: #00b3b3;
+					color: white;
+					font-size: 0.96em;
+				"
+			>
+				<a
+					href="#"
+					role="button"
+					class="
+						ui-toolbar-header-button-left
+						ui-button
+						ui-button-inline
+						ui-mini
+						ui-corner-all
+					"
+					data-rel="back"
+					><span class="ui-icon ui-icon-arrow-l"></span
+				></a>
+				<h1>KOFAX ONBOARDING</h1>
+				<a
+					href="#"
+					role="button"
+					id="extracton_settings_button"
+					class="
+						ui-toolbar-header-button-right
+						ui-button
+						ui-button-inline
+						ui-mini
+						ui-corner-all
+					"
+					><span class="ui-icon ui-icon-gear"></span
+				></a>
+			</div>
+			<div data-role="main" class="ui-content">
+				<ul
+					data-role="listview"
+					class="countryselectionlistview"
+					id="parentlist"
+				>
+					<li role="button" data-icon="false" style="margin-top: 10px">
+						<div id="us" data-countryid="US">
+							<img
+								src="../images/cd_country/unitedstates.png"
+								width="40px"
+								height="40px"
+								class="countryselectionimg"
+								align="middle"
+							/>United States
+						</div>
+					</li>
+					<li role="button" data-icon="false" id="Australia">
+						<div id="australia" data-countryid="AU">
+							<img
+								src="../images/cd_country/australia.png"
+								width="40px"
+								height="40px"
+								class="countryselectionimg"
+								align="middle"
+							/>Australia
+						</div>
+					</li>
+					<li role="button" data-icon="false">
+						<div id="canada" data-countryid="CA">
+							<img
+								src="../images/cd_country/canada.png"
+								width="40px"
+								height="40px"
+								class="countryselectionimg"
+								align="middle"
+							/>Canada
+						</div>
+					</li>
+					<li role="button" data-icon="false">
+						<div id="hongkong" data-countryid="HK">
+							<img
+								src="../images/cd_country/hongkong.png"
+								width="40px"
+								height="40px"
+								class="countryselectionimg"
+								align="middle"
+							/>Hong Kong
+						</div>
+					</li>
+					<li role="button" data-icon="false">
+						<div id="singapore" data-countryid="SG">
+							<img
+								src="../images/cd_country/singapore.png"
+								width="40px"
+								height="40px"
+								class="countryselectionimg"
+								align="middle"
+							/>Singapore
+						</div>
+					</li>
+					<li role="button" data-icon="false">
+						<div id="unitedkingdom" data-countryid="UK">
+							<img
+								src="../images/cd_country/unitedkingdoms.png"
+								width="40px"
+								height="40px"
+								class="countryselectionimg"
+								align="middle"
+							/>United Kingdom
+						</div>
+					</li>
+				</ul>
+			</div>
+
+			<div
+				style="background-color: #ffffff"
+				data-role="popup"
+				id="mypopupalert"
+				class="ui-content"
+				data-overlay-theme="b"
+			>
+				<h4 style="text-align: center; margin-top: 10px">
+					Check Capture
+				</h4>
+				<hr style="margin-top: 0" />
+				<div class="ui-grid-a" style="overflow: visible">
+					<ul>
+						<li class="list_region">
+							<div class="third-button_l">
+								<div class="btn-txt_l">Account Type</div>
+							</div>
+							<div class="wrapper" id="account_type">
+								<div class="leftRadioButton someWidth">
+									<fieldset
+										data-role="controlgroup"
+										id="account_type_List"
+									>
+										<label for="radio-choice-checking"
+											>Checking</label
+										>
+										<input
+											type="radio"
+											class="MobileID"
+											name="radio-choice-account_type"
+											id="radio-choice-checking"
+											value="Checking"
+											checked="checked"
+										/>
+
+										<label for="radio-choice-savings"
+											>Savings</label
+										>
+										<input
+											type="radio"
+											class="MobileID"
+											name="radio-choice-account_type"
+											id="radio-choice-savings"
+											value="Savings"
+										/>
+									</fieldset>
+								</div>
+							</div>
+						</li>
+						<li class="list_region">
+							<div class="third-button">
+								<div class="btn-txt_r">Amount*</div>
+								<div class="btn-icon_l">
+									<input
+										id="check_amount_popup"
+										type="number"
+										onkeypress="Utils.numberValidate(event)"
+										name="Amount"
+									/>
+								</div>
+							</div>
+						</li>
+					</ul>
+				</div>
+				<div id="footer" style="margin-top: 20%">
+					<div class="ui-grid-a">
+						<a	
+							href="#"
+							role="button"	
+							style="
+								background-color: #00b3b3;
+								color: white;
+								margin-left: 10px;
+								margin-right: 10px;
+							"
+							id="capture_check_button"
+							class="ui-button ui-corner-all ui-shadow"
+							><img src="../images/camera.svg" width="15%" />
+							Capture Check</a
+						>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

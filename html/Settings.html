@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<!-- This module allows the user to capture only  front of a document.
+    The document can be a passport or billpay , etc.-->
+<html>
+	<meta
+		name="viewport"
+		content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"
+	/>
+	<link rel="stylesheet" href="../css/jquery.mobile-1.5.0-alpha.1.min.css" />
+	<link rel="stylesheet" type="text/css" href="../css/index.css" />
+	<link rel="stylesheet" type="text/css" href="../css/app.css" />
+	<link rel="stylesheet" type="text/css" href="../css/settings.css" />
+	<script type="text/javascript" src="../lib/jquery-3.5.1.min.js"></script>
+	<script
+		type="text/javascript"
+		src="../lib/jquery-migrate-3.0.1.js"
+	></script>
+	<script
+		type="text/javascript"
+		src="../lib/jquery.mobile-1.5.0-alpha.1.min.js"
+	></script>
+	<script type="text/javascript" src="../js/selfiecapture.js"></script>
+	<script type="text/javascript" src="../js/capture.js"></script>
+	<script type="text/javascript" src="../js/review.js"></script>
+	<script type="text/javascript" src="../js/processor.js"></script>
+	<script type="text/javascript" src="../js/billpay.js"></script>
+	<script type="text/javascript" src="../js/passport.js"></script>
+	<script type="text/javascript" src="../js/creditcard.js"></script>
+	<script type="text/javascript" src="../js/app.js"></script>
+	<script type="text/javascript" src="../js/utils.js"></script>
+
+	<body>
+		<div data-role="page" id="extractionsettingsscreen">
+			<main>
+				<div
+					data-role="toolbar"
+					data-type="header"
+					data-position="fixed"
+					id="header"
+					data-tap-toggle="false"
+					data-hide-during-focus="false"
+				>
+					<h6 id="headertitle" class="headerText">Extraction</h6>
+					<a
+						href="#"
+						role="button"
+						id="backbutton"
+						class="
+							ui-toolbar-header-button-left
+							ui-button
+							ui-button-inline
+							ui-mini
+							ui-corner-all
+						"
+						data-rel="back"
+						><span class="ui-icon ui-icon-arrow-l"></span
+					></a>
+				</div>
+				<div data-role="main" class="ui-content">
+					<div>
+						<div>
+							<ul>
+								<li class="classli" id="ServerTypeDiv">
+									<div class="label_field_pair_width">
+										<label
+											class="controlGroupLabel"
+											for="ServerType"
+											>ServerType</label
+										>
+										<div id="serverTypeRadio">
+											<fieldset
+												data-role="controlgroup"
+												data-type="horizontal"
+												id="ServerType"
+											>
+												<input
+													type="radio"
+													class="servertype"
+													name="radio-choice"
+													id="radio-choice-1"
+													value="RTTI"
+												/>
+												<label for="radio-choice-1"
+													>RTTI</label
+												>
+												<input
+													type="radio"
+													class="servertype"
+													name="radio-choice"
+													id="radio-choice-2"
+													value="KTA"
+												/>
+												<label
+													id="KTA"
+													for="radio-choice-2"
+													>KTA</label
+												>
+											</fieldset>
+										</div>
+									</div>
+								</li>
+							</ul>
+							<ul id="mobileIDul" style="display: none">
+								<li class="settingsli">
+									<div class="settings_labels">
+										<label for="MobileID">Mobile ID</label>
+									</div>
+								</li>
+								<p>
+									<select id="mobileIDList">
+										<option
+											value="Mobile ID - Server Extraction"
+										>
+											Mobile ID - Server Extraction
+										</option>
+										<option
+											value="Mobile ID - Server  & Device Extraction"
+										>
+											Mobile ID - Server & Device
+											Extraction
+										</option>
+									</select>
+								</p>
+							</ul>
+							<ul id="KTADETAILS">
+								<li class="lisubheader">
+									<div>Account</div>
+								</li>
+								<li class="settingsli">
+									<div class="settings_labels">
+										<label for="UserName">UserName</label>
+									</div>
+								</li>
+								<li class="settingsli">
+									<div class="settings_textFields">
+										<input type="text" id="ktausername" />
+									</div>
+								</li>
+								<li class="settingsli">
+									<div class="settings_labels">
+										<label for="Password">Password</label>
+									</div>
+								</li>
+								<li class="settingsli">
+									<div class="settings_textFields">
+										<input
+											type="password"
+											id="ktapassword"
+										/>
+									</div>
+								</li>
+								<li class="settingsli">
+									<div class="settings_labels">
+										<label for="ProcessIdentity"
+											>Process Name</label
+										>
+									</div>
+								</li>
+								<li class="settingsli">
+									<div class="settings_textFields">
+										<input
+											type="text"
+											id="ProcessIdentity"
+										/>
+									</div>
+								</li>
+							</ul>
+							<ul id="SERVERBLOCK">
+								<li class="lisubheader">
+									<div id="serverUrlText">Server Url</div>
+								</li>
+								<li>
+									<div class="label_field_pair">
+										<input type="text" id="serverurl" />
+									</div>
+								</li>
+								<li>
+									<label
+										id="extractionMethod"
+										for="ExtractionMethod"
+										>Extract Method</label
+									>
+								</li>
+								<li class="classli">
+									<div class="label_field_pair_width">
+										<div id="extractionMethodRadio">
+											<fieldset
+												data-role="controlgroup"
+												data-type="horizontal"
+												id="type"
+											>
+												<input
+													type="radio"
+													class="extractMethodType"
+													name="radio-mode"
+													id="extractionMethod-radio-choice-1"
+													value="Embossed"
+												/>
+												<label
+													for="extractionMethod-radio-choice-1"
+													>Embossed</label
+												>
+												<input
+													type="radio"
+													class="extractMethodType"
+													name="radio-mode"
+													id="extractionMethod-radio-choice-2"
+													value="NonEmbossed"
+												/>
+												<label
+													for="extractionMethod-radio-choice-2"
+													>Non-Embossed</label
+												>
+												<input
+													type="radio"
+													class="extractMethodType"
+													name="radio-mode"
+													id="extractionMethod-radio-choice-3"
+													value="Detect"
+													checked="checked"
+												/>
+												<label
+													for="extractionMethod-radio-choice-3"
+													>Detect</label
+												>
+											</fieldset>
+										</div>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</main>
+		</div>
+	</body>
+</html>

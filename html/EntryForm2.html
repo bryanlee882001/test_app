@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"
+		/>
+		<title>Entry Form2</title>
+		<link rel="stylesheet" href="../css/appstyle.css" />
+		<link
+			rel="stylesheet"
+			href="../css/jquery.mobile-1.5.0-alpha.1.min.css"
+		/>
+		<script
+			type="text/javascript"
+			src="../lib/jquery-3.5.1.min.js"
+		></script>
+		<script
+			type="text/javascript"
+			src="../lib/jquery-migrate-3.0.1.js"
+		></script>
+		<script
+			type="text/javascript"
+			src="../lib/jquery.mobile-1.5.0-alpha.1.min.js"
+		></script>
+		<link rel="stylesheet" href="../../KfxWebSDK/CSS/KfxWebSDK.css" />
+		<script type="text/javascript" src="../lib/bootbox.min.js"></script>
+		<script type="text/javascript" src="../js/app.js"></script>
+		<script
+			type="text/javascript"
+			src="../js/extractionresultscreen.js"
+		></script>
+	</head>
+	<body>
+		<div data-role="page" id="entryform2">
+			<div
+				data-role="toolbar"
+				data-type="header"
+				style="
+					background-color: #00b3b3;
+					color: white;
+					font-size: 0.96em;
+				"
+			>
+				<a
+					href="#"
+					role="button"
+					class="
+						ui-toolbar-header-button-left
+						ui-button
+						ui-button-inline
+						ui-mini
+						ui-corner-all
+					"
+					data-rel="back"
+					><span class="ui-icon ui-icon-arrow-l"></span
+				></a>
+				<h1>KOFAX ONBOARDING</h1>
+			</div>
+
+			<div data-role="main" style="margin: 0px">
+				<h4 class="entryformheading">Your Information</h4>
+
+				<div class="center" style="margin: auto; width: 40%">
+					<img
+						class="navImage"
+						src="../images/dot2.svg"
+						width="100%"
+					/>
+				</div>
+				<hr />
+				<div
+					style="
+						padding-left: 10px;
+						padding-bottom: 10px;
+						margin: 0px;
+					"
+				>
+					<h5 class="infoFont" style="padding-bottom: 5px">
+						Document Details
+					</h5>
+					<div
+						class="ui-field-contain"
+						style="padding: 0px; margin: 2px"
+					>
+						<h5>DocumentType</h5>
+						<input
+							name="id"
+							id="id"
+							placeholder="ID"
+							style="width: 100%; height: 20px"
+						/>
+					</div>
+
+					<h5
+						style="
+							font-weight: bold;
+							padding-bottom: 5px;
+							padding-top: 5px;
+						"
+						id="communication_details"
+					>
+						Communication Details
+					</h5>
+					<form method="post" id="dl_details">
+						<div
+							class="ui-field-contain"
+							style="padding: 0px; margin: 0px"
+						>
+							<h5>Address Line1*</h5>
+							<input
+								name="address1"
+								id="address1"
+								placeholder="Address Line1"
+							/>
+							<h5>Address Line2</h5>
+							<input
+								name="address2"
+								id="address2"
+								placeholder="Address Line2"
+							/>
+							<h5>City</h5>
+							<input name="city" id="city" placeholder="City" />
+							<h5>State*</h5>
+							<input
+								name="state"
+								id="state"
+								placeholder="State"
+							/>
+							<h5>ZIP Code*</h5>
+							<input
+								name="zip"
+								id="zip"
+								type="number"
+								onkeypress="Utils.numberValidate(event)"
+								placeholder="ZIP Code"
+							/>
+						</div>
+					</form>
+
+					<form method="post" id="passport_details">
+						<div
+							class="ui-field-contain"
+							style="padding: 0px; margin: 0px"
+						>
+							<h5>Passport Number</h5>
+							<input
+								name="Passportnumber"
+								id="passport_number"
+								type="number"
+								onkeypress="Utils.numberValidate(event)"
+								placeholder="Passport Number"
+							/>
+							<h5>Country</h5>
+							<input
+								name="country"
+								id="country"
+								placeholder="Country"
+							/>
+							<h5>Issue Date</h5>
+							<input
+								name="issuedate"
+								id="issue_date"
+								type="date"
+								placeholder="Issue Date"
+							/>
+							<h5>Expiration Date</h5>
+							<input
+								name="expirationdate"
+								id="expiration_date"
+								type="date"
+								placeholder="Expiratiion Date"
+							/>
+							<h5>MRZ1</h5>
+							<input name="mrz1" id="mrz1" placeholder="MRZ1" />
+							<h5>MRZ2</h5>
+							<input name="mrz2" id="mrz2" placeholder="MRZ2" />
+						</div>
+					</form>
+
+					<div class="ui-grid-a">
+						<div class="ui-block-a"></div>
+
+						<div id="entryform2next" class="ui-block-b">
+							<a
+								href="#"
+								role="button"
+								style="background-color: #00b3b3; color: white"
+								class="ui-button ui-corner-all ui-shadow"
+								>Next</a
+							><br />
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

@@ -56,31 +56,31 @@
             }
         }
 
-        document.getElementById('captureButton').addEventListener('click', function() {
-            KfxWebSDK.Capture.create(cameraOptions,function(createSuccess){ 
+        document.addEventListener("DOMContentLoaded", function () {
+            // Initialize the capture control when the page loads
+            KfxWebSDK.Capture.create(cameraOptions, function(createSuccess) {
+                console.info('Capture control created successfully.');
 
+                // Set capture options
                 KfxWebSDK.Capture.setOptions(captureOptions, function() {
-                    console.info('Capture options set successfully.');
+                    console.log('Capture options set successfully.');
                 }, function(error) {
                     console.error('Error setting capture options:', error);
                 });
 
-                KfxWebSDK.Capture.takePicture(function(imageData){ 
-                    //success, user get the captured image in the ImageData format . 
+            }, function(error) {
+                console.error('Error creating capture control:', error);
+            });
 
-
-                    KfxWebSDK.Capture.setOptions(captureOptions, function() {
-                        console.info('Capture options set successfully.');
-                    }, function(error) {
-                        console.error('Error setting capture options:', error);
-                    });
-
-                },function(error){ 
+            // Capture image on button click
+            document.getElementById('captureButton').addEventListener('click', function() {
+                KfxWebSDK.Capture.takePicture(function(imageData) {
+                    console.log('Image captured successfully:', imageData);
+                    // Do something with the captured image data
+                }, function(error) {
                     console.error('Error capturing image:', error);
-                }); 
-                },function(error){ 
-                    console.error('Error creating capture control:', error);
                 });
+            });
         });
 
     </script>

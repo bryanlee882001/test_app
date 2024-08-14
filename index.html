@@ -13,6 +13,7 @@
     <h1>Kofax WebSDK Capture Example</h1>
     <div id="cameraContainer"></div>
     <button id="captureButton">Capture Image</button>
+    <img id="capturedImage" alt="Captured Image">
 
 
     <script>
@@ -76,7 +77,10 @@
             document.getElementById('captureButton').addEventListener('click', function() {
                 KfxWebSDK.Capture.takePicture(function(imageData) {
                     console.log('Image captured successfully:', imageData);
+                    
                     // Do something with the captured image data
+                    var capturedImageElement = document.getElementById('capturedImage');
+                    capturedImageElement.src = 'data:image/jpeg;base64,' + imageData;
                 }, function(error) {
                     console.error('Error capturing image:', error);
                 });

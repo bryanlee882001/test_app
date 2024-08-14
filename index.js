@@ -71,6 +71,9 @@ document.addEventListener("DOMContentLoaded", function () {
             // successCallback
             console.info('Image captured successfully:', imageData);
 
+            document.getElementById('test').innerHTML = 'Cheese'
+            alert('successfully taken picture')
+
             // Display the captured image
             var capturedImageElement = document.getElementById('capturedImage');
             capturedImageElement.src = 'data:image/jpeg;base64,' + imageData;

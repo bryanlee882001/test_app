@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"
+		/>
+		<title>Communication Address</title>
+		<link rel="stylesheet" href="../css/appstyle.css" />
+		<link
+			rel="stylesheet"
+			href="../css/jquery.mobile-1.5.0-alpha.1.min.css"
+		/>
+		<script
+			type="text/javascript"
+			src="../lib/jquery-3.5.1.min.js"
+		></script>
+		<script
+			type="text/javascript"
+			src="../lib/jquery-migrate-3.0.1.js"
+		></script>
+		<script
+			type="text/javascript"
+			src="../lib/jquery.mobile-1.5.0-alpha.1.min.js"
+		></script>
+		<link rel="stylesheet" href="../../KfxWebSDK/CSS/KfxWebSDK.css" />
+		<script type="text/javascript" src="../lib/bootbox.min.js"></script>
+		<script type="text/javascript" src="../js/app.js"></script>
+		<script
+			type="text/javascript"
+			src="../js/extractionresultscreen.js"
+		></script>
+	</head>
+
+	<body>
+		<div data-role="page" id="communicationaddress">
+			<div
+				data-role="toolbar"
+				data-type="header"
+				style="
+					background-color: #00b3b3;
+					color: white;
+					font-size: 0.96em;
+				"
+			>
+				<a
+					href="#"
+					role="button"
+					class="
+						ui-toolbar-header-button-left
+						ui-button
+						ui-button-inline
+						ui-mini
+						ui-corner-all
+					"
+					data-rel="back"
+					><span class="ui-icon ui-icon-arrow-l"></span
+				></a>
+				<h1>KOFAX ONBOARDING</h1>
+			</div>
+			<div data-role="main" style="margin: 0px">
+				<h4 class="entryformheading">Communication Address</h4>
+				<div class="center" style="margin: auto; width: 40%">
+					<img
+						class="navImage"
+						src="../images/dot3.svg"
+						width="100%"
+					/>
+				</div>
+				<hr />
+				<div
+					style="
+						padding-left: 10px;
+						padding-bottom: 10px;
+						margin: 0px;
+					"
+				>
+					<form method="post" id="cm_details">
+						<div
+							class="ui-field-contain"
+							style="padding: 0px; margin: 0px"
+						>
+							<h5>Address Line1*</h5>
+							<input
+								name="address1"
+								id="address1"
+								placeholder="Address Line1"
+							/>
+							<h5>Address Line2</h5>
+							<input
+								name="address2"
+								id="address2"
+								placeholder="Address Line2"
+							/>
+							<h5>City</h5>
+							<input name="city" id="city" placeholder="City" />
+							<h5>State*</h5>
+							<input
+								name="state"
+								id="state"
+								placeholder="State"
+							/>
+							<h5>ZIP Code*</h5>
+							<input
+								name="zip"
+								id="zip"
+								type="number"
+								onkeypress="Utils.numberValidate(event)"
+								placeholder="ZIP Code"
+							/>
+						</div>
+					</form>
+					<div class="ui-grid-a">
+						<div class="ui-block-a"></div>
+						<div id="communicationaddressnext" class="ui-block-b">
+							<a
+								href="#"
+								role="button"
+								style="background-color: #00b3b3; color: white"
+								class="ui-button ui-corner-all ui-shadow"
+								>Next</a
+							>
+							<br />
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<!-- This module allows the user to capture only  front of a document.
+    The document can be a passport or billpay , etc.-->
+<html>
+	<head>
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"
+		/>
+		<link
+			rel="stylesheet"
+			href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+		/>
+		<title>Extraction Settings</title>
+		<link
+			rel="stylesheet"
+			href="../css/jquery.mobile-1.5.0-alpha.1.min.css"
+		/>
+		<link rel="stylesheet" href="../css/appstyle.css" />
+		<script
+			type="text/javascript"
+			src="../lib/jquery-3.5.1.min.js"
+		></script>
+		<script
+			type="text/javascript"
+			src="../lib/jquery-migrate-3.0.1.js"
+		></script>
+		<script
+			type="text/javascript"
+			src="../lib/jquery.mobile-1.5.0-alpha.1.min.js"
+		></script>
+		<script type="text/javascript" src="../lib/bootstrap.min.js"></script>
+		<script type="text/javascript" src="../lib/bootbox.min.js"></script>
+		<script type="text/javascript" src="../js/app.js"></script>
+	</head>
+
+	<body>
+		<div data-role="page" id="extractionsettingsscreen">
+			<main>
+				<div
+					data-role="toolbar"
+					data-type="header"
+					style="
+						background-color: #00b3b3;
+						color: white;
+						font-size: 0.96em;
+					"
+				>
+					<a	
+						role="button"
+						class="
+							ui-toolbar-header-button-left
+							ui-button
+							ui-button-inline
+							ui-mini
+							ui-corner-all
+						"
+						data-rel="back"
+						><span class="ui-icon ui-icon-arrow-l"></span
+					></a>
+					<h6 id="headertitle" class="headerText">Extraction</h6>
+				</div>
+				<div data-role="main" class="ui-content">
+					<div>
+						<div>
+							<ul>
+								<li class="classli" id="ServerTypeDiv">
+									<div class="label_field_pair_width">
+										<label
+											class="controlGroupLabel"
+											for="ServerType"
+											>Server Type</label
+										>
+										<div id="serverTypeRadio">
+											<fieldset
+												data-role="controlgroup"
+												data-type="horizontal"
+												id="ServerType"
+											>
+												<input
+													type="radio"
+													class="servertype"
+													name="radio-choice"
+													id="radio-choice-1"
+													value="RTTI"
+												/>
+												<label for="radio-choice-1"
+													>RTTI</label
+												>
+												<input
+													type="radio"
+													class="servertype"
+													name="radio-choice"
+													id="radio-choice-2"
+													value="KTA"
+												/>
+												<label
+													id="KTA"
+													for="radio-choice-2"
+													>KTA</label
+												>
+											</fieldset>
+										</div>
+									</div>
+								</li>
+							</ul>
+							<ul id="KTADETAILS">
+								<li class="lisubheader">
+									<div>Account</div>
+								</li>
+								<li class="settingsli">
+									<div class="settings_labels">
+										<label for="SessionID">SessionID</label>
+									</div>
+								</li>
+								<li class="settingsli">
+									<div class="settings_textFields">
+										<input type="text" id="ktasessionId" />
+									</div>
+								</li>
+								<li class="settingsli">
+									<div class="settings_labels">
+										<label for="ProcessIdentity"
+											>Process Name</label
+										>
+									</div>
+								</li>
+								<li class="settingsli">
+									<div class="settings_textFields">
+										<input
+											type="text"
+											id="ProcessIdentity"
+										/>
+									</div>
+								</li>
+							</ul>
+							<ul id="SERVERBLOCK">
+								<li class="lisubheader">
+									<div id="serverUrlText">Server Url</div>
+								</li>
+								<li>
+									<div class="label_field_pair">
+										<textarea
+											name="textarea"
+											id="serverurl"
+										></textarea>
+									</div>
+								</li>
+								<div id="ccExtractionMethod">
+									<li>
+										<div class="settings_labels">
+											<label
+												id="extractionMethod"
+												for="ExtractionMethod"
+												>Extract Method</label
+											>
+										</div>
+									</li>
+									<li>
+										<div id="extractionMethodRadio">
+											<fieldset
+												data-role="controlgroup"
+												id="type"
+												data-mini="true"
+											>
+												<input
+													type="radio"
+													class="extractMethodType"
+													name="radio-mode"
+													id="extractionMethod-radio-choice-1"
+													value="Embossed"
+												/>
+												<label
+													for="extractionMethod-radio-choice-1"
+													>Embossed</label
+												>
+												<input
+													type="radio"
+													class="extractMethodType"
+													name="radio-mode"
+													id="extractionMethod-radio-choice-2"
+													value="NonEmbossed"
+												/>
+												<label
+													for="extractionMethod-radio-choice-2"
+													>Non-Embossed</label
+												>
+												<input
+													type="radio"
+													class="extractMethodType"
+													name="radio-mode"
+													id="extractionMethod-radio-choice-3"
+													value="Detect"
+													checked="checked"
+												/>
+												<label
+													for="extractionMethod-radio-choice-3"
+													>Detect</label
+												>
+											</fieldset>
+										</div>
+									</li>
+								</div>
+							</ul>
+							<ul>
+								<li
+									class="authentic_classli"
+									id="IDAuthenticationDiv"
+								>
+									<div class="label_field_pair_width">
+										<label
+											class="controlGroupLabel"
+											for="IDAuthentication"
+											>ID Authentication</label
+										>
+										<div id="idAuthenticationRadio">
+											<select
+												name="IDAuthentication"
+												id="IDAuthentication"
+											>
+												<option value="OFF">No</option>
+												<option value="ON">Yes</option>
+											</select>
+										</div>
+									</div>
+								</li>
+								<li
+									class="autocropverification_classli"
+									style="display: none"
+									id="IDAutoCropVerificationDiv"
+								>
+									<div class="label_field_pair_width">
+										<label
+											class="controlGroupLabel"
+											for="IDAutoCropVerification"
+											>Auto Crop Verification</label
+										>
+										<div id="idAutoCropVerificationRadio">
+											<select
+												name="IDAutoCropVerification"
+												id="IDAutoCropVerification"
+											>
+												<option value="OFF">No</option>
+												<option value="ON">Yes</option>
+											</select>
+										</div>
+									</div>
+								</li>
+								<li
+									class="enableflashcapture_classli"
+									style="display: none"
+									id="IDEnableFlashCaptureDiv"
+								>
+									<div class="label_field_pair_width">
+										<label
+											class="controlGroupLabel"
+											for="IDEnableFlashCapture"
+											>Enable Flash Capture</label
+										>
+										<div id="idEnableFlashCaptureRadio">
+											<select
+												name="IDEnableFlashCapture"
+												id="IDEnableFlashCapture"
+											>
+												<option value="OFF">No</option>
+												<option value="ON">Yes</option>
+											</select>
+										</div>
+									</div>
+								</li>
+								<li
+									class="selfiecapture_classli"
+									style="display: none"
+									id="IDSelfieCaptureDiv"
+								>
+									<div class="label_field_pair_width">
+										<label
+											class="controlGroupLabel"
+											for="IDSelfieCapture"
+											>Selfie Capture Experience</label
+										>
+										<div id="idSelfieCaptureRadio">
+											<select
+												name="IDSelfieCapture"
+												id="IDSelfieCapture"
+											>
+												<option value="OFF">No</option>
+												<option value="ON">Yes</option>
+											</select>
+										</div>
+									</div>
+								</li>
+								<li
+									class="selfiecapture_classli"
+									style="display: none"
+									id="IDSelfieMinFaceSizeDiv"
+								>
+									<div class="settings_labels">
+										<label for="minfacesize"
+											>Min Face Size (0 - 1)</label
+										>
+									</div>
+									<div class="settings_textFields">
+										<input type="number" id="minfacesize" />
+									</div>
+								</li>
+								<li
+									class="hiddencapture_classli"
+									style="display: none"
+									id="IDHiddenCaptureDiv"
+								>
+									<div class="label_field_pair_width">
+										<label
+											class="controlGroupLabel"
+											for="IDHiddenCapture"
+											>Hidden Capture</label
+										>
+										<div id="idHiddenCaptureRadio">
+											<select
+												name="IDHiddenCapture"
+												id="IDHiddenCapture"
+											>
+												<option value="OFF">No</option>
+												<option value="ON">Yes</option>
+											</select>
+										</div>
+									</div>
+								</li>
+								<li
+									class="enableautocapture_classli"
+									style="display: none"
+									id="IDEnableAutoCaptureDiv"
+								>
+									<div class="label_field_pair_width">
+										<label
+											class="controlGroupLabel"
+											for="IDEnableAutoCapture"
+											>Enable Auto Capture</label
+										>
+										<div id="idEnableAutoCaptureRadio">
+											<select
+												name="IDEnableAutoCapture"
+												id="IDEnableAutoCapture"
+											>
+												<option value="OFF">No</option>
+												<option value="ON">Yes</option>
+											</select>
+										</div>
+									</div>
+								</li>
+								<li
+									class="enableblinkdetection_classli"
+									style="display: none"
+									id="IDEnableBlinkDetectionDiv"
+								>
+									<div class="label_field_pair_width">
+										<label
+											class="controlGroupLabel"
+											for="IDEnableBlinkDetection"
+											>Enable Blink Detection</label
+										>
+										<div id="idEnableBlinkDetectionRadio">
+											<select
+												name="IDEnableBlinkDetection"
+												id="IDEnableBlinkDetection"
+											>
+												<option value="OFF">No</option>
+												<option value="ON">Yes</option>
+											</select>
+										</div>
+									</div>
+								</li>
+							</ul>
+							<!--ul>
+                            <li class="classli" id="SelfieCheckDiv">
+                                <div class="label_field_pair_width">
+                                    <label class="controlGroupLabel" for="SelfieCheck">Selfie Check</label>
+                                    <div id="selfieCheckRadio">
+                                        <fieldset data-role="controlgroup" data-type="horizontal" id="SelfieCheck">
+                                            <input type="radio" class="selfiecheck" name="radio-choice-selfiecheck" id="selfiecheck-radio-choice-1" value="ON" />
+                                            <label for="selfiecheck-radio-choice-1">ON</label>
+                                            <input type="radio" class="selfiecheck" name="radio-choice-selfiecheck" id="selfiecheck-radio-choice-2" value="OFF" checked="checked" />
+                                            <label id="OFF" for="selfiecheck-radio-choice-2">OFF</label>
+                                        </fieldset>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul!-->
+						</div>
+					</div>
+				</div>
+			</main>
+		</div>
+	</body>
+</html>

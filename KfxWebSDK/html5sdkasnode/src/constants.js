@@ -1,0 +1,1 @@
+export const DATA_URL_STRING = 'data:image/png;base64, ';

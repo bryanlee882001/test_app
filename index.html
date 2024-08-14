@@ -1,41 +1,61 @@
 <!DOCTYPE html>
-<!--
-    Licensed to the Apache Software Foundation (ASF) under one
-    or more contributor license agreements.  See the NOTICE file
-    distributed with this work for additional information
-    regarding copyright ownership.  The ASF licenses this file
-    to you under the Apache License, Version 2.0 (the
-    "License"); you may not use this file except in compliance
-    with the License.  You may obtain a copy of the License at
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./KfxWebSDK/KfxWebSDK/CSS/KfxWebSDK.css">
+    <script type="text/javascript" src="./KfxWebSDK/KfxWebSDK/KfxWebSDK.js"></script>
+    <script type="text/javascript" src="index.js"></script>
+    <title>Document</title>
+</head>
 
-    http://www.apache.org/licenses/LICENSE-2.0
+<body>
+    <h1>Kofax WebSDK Capture Example</h1>
+    <div id="cameraContainer"></div>
+    <button id="captureButton">Capture Image</button>
 
-    Unless required by applicable law or agreed to in writing,
-    software distributed under the License is distributed on an
-    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-     KIND, either express or implied.  See the License for the
-    specific language governing permissions and limitations
-    under the License.
--->
-<html>
-	<head>
-		<meta charset="utf-8" />
-		<meta name="format-detection" content="telephone=no" />
-		<!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
-		<meta
-			name="viewport"
-			content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width"
-		/>
-		<title>Sample App</title>
-	</head>
-	<body>
-		<script type="text/javascript">
-			if (typeof Storage !== "undefined") {
-				// "isFirstTimeVisit" is used to store , if the app is launched for the first time or it is reloaded due to refresh .
 
-				sessionStorage.isFirstTimeVisit = "true";
-			}
-			window.location.replace("html/Home.html");
-		</script>
-	</body>
+    <script>
+        // Initialize the capture control
+        // KfxWebSDK.Capture.create({
+        //     containerId: 'cameraContainer',
+        //     preference: 'camera',
+        //     preview: true,
+        //     useVideoStream: true
+        // }, function() {
+        //     console.info('Capture control created successfully.');
+        // }, function(error) {
+        //     console.error('Error creating capture control:', error);
+        // });
+
+        // // Capture image on button click
+        // document.getElementById('captureButton').addEventListener('click', function() {
+        //     KfxWebSDK.Capture.takePicture(function(imageData) {
+        //         console.info('Image captured successfully:', imageData);
+                
+        //     }, function(error) {
+        //         console.error('Error capturing image:', error);
+        //     });
+        // });
+
+        var cameraOptions = { containerId : "", 
+            preference : "camera", 
+            useVideoStream : true
+        }; 
+
+        document.getElementById('captureButton').addEventListener('click', function() {
+            KfxWebSDK.Capture.create(cameraOptions,function(createSuccess){ 
+        KfxWebSDK.Capture.takePicture(function(imageData){ 
+            //success, user get the captured image in the ImageData  format . 
+            
+
+            },function(error){ 
+                console.error('Error capturing image:', error);
+            }); 
+            },function(error){ 
+                console.error('Error creating capture control:', error);
+            });
+        });
+    </script>
+</body>
 </html>

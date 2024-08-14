@@ -9,8 +9,8 @@ document.addEventListener("DOMContentLoaded", function () {
         // Set additional capture options if needed
         var captureOptions = {
             useTargetFrameCrop: false,
-            frameAspectRatio: 0.628,
-            framePadding: 5,
+            frameAspectRatio: 1.414,
+            framePadding: 10,
             frameCornerHeight: 15,
             frameCornerWidth: 70,
             frameCornerColor: '#00FF00',

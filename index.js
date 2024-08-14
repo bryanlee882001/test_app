@@ -40,9 +40,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
         defaultOptions.containerId = "cameraContainer";
         defaultOptions.preference = "camera";
+        defaultOptions.lookAndFeel.documentSample = "../images/demo_bill.svg";
         defaultOptions.useVideoStream = true;
         defaultOptions.preview = true;
-        defaultOptions.downloadButton = true;
+        defaultOptions.downloadButton = "downloadButton";
 
         // Initialize the capture control with default options
         KfxWebSDK.Capture.create(defaultOptions, function(createSuccess) {
@@ -80,17 +81,9 @@ document.addEventListener("DOMContentLoaded", function () {
             // var capturedImageElement = document.getElementById('capturedImage');
             // capturedImageElement.src = 'data:image/jpeg;base64,' + imageData;
 
-            // // Show the download button
-            // var downloadButton = document.getElementById('downloadButton');
-            // downloadButton.style.display = 'block';
-
-            // // Set up the download link
-            // downloadButton.addEventListener('click', function() {
-            //     var link = document.createElement('a');
-            //     link.href = 'data:image/jpeg;base64,' + imageData;
-            //     link.download = 'captured_image.jpg';
-            //     link.click();
-            // });
+            // Show the download button
+            var downloadButton = document.getElementById('downloadButton');
+            downloadButton.style.display = 'block';
 
         }, function(error) {
             // errorCallback

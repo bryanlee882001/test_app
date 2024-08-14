@@ -1,4 +1,36 @@
-
+// Set additional capture options if needed
+var captureOptions = {
+    useTargetFrameCrop: false,
+    frameAspectRatio: 0.628,
+    framePadding: 5,
+    frameCornerHeight: 15,
+    frameCornerWidth: 70,
+    frameCornerColor: '#00FF00',
+    resolution: KfxWebSDK.resolution.RES_FULL_HD,
+    downscaleSize: 2,
+    outOfFrameTransparency: 0.5,
+    showEdges: false,
+    edgesColor: '#FFFF00',
+    edgesWidth: 4,
+    enableFlashCapture: false,
+    guidanceSize: 150,
+    criteria: {
+        captureTimeout: 1700,
+        centerToleranceFraction: 0.15,
+        longAxisThreshold: 85,
+        shortAxisThreshold: 60,
+        maxFillFraction: 1.8,
+        minFillFraction: 0.65,
+        turnSkewAngleTolerance: 10,
+        pitchThreshold: 15,
+        rollThreshold: 15
+    },
+    lookAndFeel: {
+        showTapToDismissMessage: true,
+        forceCapture: 10,
+        gallery: true
+    }
+};
 
 document.addEventListener("DOMContentLoaded", function () {
 
@@ -6,40 +38,6 @@ document.addEventListener("DOMContentLoaded", function () {
     KfxWebSDK.Capture.getDefaultOptions(function(defaultOptions) {
         console.info('Default options retrieved successfully:', defaultOptions);
         document.getElementById('test').innerHTML = 'Default Options Retrieved Successfully';
-
-        // Set additional capture options if needed
-        var captureOptions = {
-            useTargetFrameCrop: false,
-            frameAspectRatio: 0.628,
-            framePadding: 5,
-            frameCornerHeight: 15,
-            frameCornerWidth: 70,
-            frameCornerColor: '#00FF00',
-            resolution: KfxWebSDK.resolution.RES_FULL_HD,
-            downscaleSize: 2,
-            outOfFrameTransparency: 0.5,
-            showEdges: false,
-            edgesColor: '#FFFF00',
-            edgesWidth: 4,
-            enableFlashCapture: false,
-            guidanceSize: 150,
-            criteria: {
-                captureTimeout: 1700,
-                centerToleranceFraction: 0.15,
-                longAxisThreshold: 85,
-                shortAxisThreshold: 60,
-                maxFillFraction: 1.8,
-                minFillFraction: 0.65,
-                turnSkewAngleTolerance: 10,
-                pitchThreshold: 15,
-                rollThreshold: 15
-            },
-            lookAndFeel: {
-                showTapToDismissMessage: true,
-                forceCapture: 10,
-                gallery: true
-            }
-        };
 
         defaultOptions.containerId = "cameraContainer";
         defaultOptions.preference = "camera";
@@ -58,6 +56,10 @@ document.addEventListener("DOMContentLoaded", function () {
                 document.getElementById('test').innerHTML = 'Error setting capture options: ' + error.message;
             });
 
+            CaptureImage()
+
+            StopCapture()
+
         }, function(error) {
             console.error('Error creating capture control:', error);
             document.getElementById('test').innerHTML = 'Error creating capture control: ' + error.message;
@@ -68,7 +70,24 @@ document.addEventListener("DOMContentLoaded", function () {
         console.error('Error retrieving default options:', error);
         document.getElementById('test').innerHTML = 'Error retrieving default options: ' + error.message;
     });
+});
 
+
+function convertImageDataToBase64(imageData) {
+    var canvas = document.createElement("canvas");
+    canvas.width = imageData.width;
+    canvas.height = imageData.height;
+    var context = canvas.getContext("2d");
+    context.putImageData(imageData, 0, 0);
+    var dataUrl = canvas.toDataURL("image/jpeg");
+    var base64 = dataUrl.replace(/^data:image\/(jpeg|png|jpg);base64,/, "");
+    context = null;
+    canvas = null;
+    dataUrl = null;
+    return base64;
+}
+
+function CaptureImage() {
     // Capture image on button click
     document.getElementById('captureButton').addEventListener('click', function() {
 
@@ -99,20 +118,14 @@ document.addEventListener("DOMContentLoaded", function () {
             document.getElementById('test').innerHTML = 'Error capturing image: ' + error.message;
         });
 
+    
         document.getElementById('captureButton').style.display = 'none';
     });
+}
 
+function StopCapture() {
     // Stop Capturing image on button click
     document.getElementById('stopButton').addEventListener('click', function() {
-
-        // KfxWebSDK.Capture.stopCapture(function(error) {
-        //     // successCallback
-        //     console.info('Successfully stopping image:', error);
-        // }, function(error) {
-        //     // errorCallback
-        //     document.getElementById('test').innerHTML = 'Error stopping image: ' + error.message;
-        //     console.error('Error stopping image:', error);
-        // });
 
         document.getElementById('test').innerHTML = 'Stopped Capturing Image';
         document.getElementById('stopButton').style.display = 'none';
@@ -121,19 +134,4 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById('captureButton').style.display = 'block';
 
     });
-});
-
-
-function convertImageDataToBase64(imageData) {
-    var canvas = document.createElement("canvas");
-    canvas.width = imageData.width;
-    canvas.height = imageData.height;
-    var context = canvas.getContext("2d");
-    context.putImageData(imageData, 0, 0);
-    var dataUrl = canvas.toDataURL("image/jpeg");
-    var base64 = dataUrl.replace(/^data:image\/(jpeg|png|jpg);base64,/, "");
-    context = null;
-    canvas = null;
-    dataUrl = null;
-    return base64;
 }

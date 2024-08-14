@@ -1,145 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./KfxWebSDK/KfxWebSDK/CSS/KfxWebSDK.css">
-    <script type="text/javascript" src="./KfxWebSDK/KfxWebSDK/KfxWebSDK.js"></script>
-    <script type="text/javascript" src="index.js"></script>
-    <title>Document</title>
-    <style>
-
-        html, body {
-            height: 100%;
-            margin: 0;
-            padding: 0;
-        }
+    <head>
         
-        #cameraContainer {
-            border-radius: 30px;
-            width: 70%;
-            height: 80%;
-            border: 1px solid #ccc;
-            padding: 10px;
-        }
-        
-        #capturedImage {
-            margin-top: 20px;
-            max-width: 100%;
-        }
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="./KfxWebSDK/KfxWebSDK/CSS/KfxWebSDK.css">
+        <link rel="stylesheet" href="styles.css">
+        <script type="text/javascript" src="./KfxWebSDK/KfxWebSDK/KfxWebSDK.js"></script>
+        <script type="text/javascript" src="index.js"></script>
+        <title>Document</title>
 
-        #captureButton {
-            margin-top: 10px;
-            margin-bottom: 20px;
-            color: white;
-            border-radius: 15px;
-            font-size: 20px;
-            background-color: #277EB7;
-            border: none;
-            width: 50%;
-            height: 5%;
-        }
+    </head>
+    <body>
 
-        .app_container {
-            padding: 10px;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-        }
+        <div class="app_container">
+            <h1>Kofax Demo App</h1>
+            <div class="button_container">
+                <button id="captureButton">Start Camera</button>
+                <button id="downloadButton" style="display: none;">Download Photo</button>
+                <button id="stopButton" style="display: none;">Stop Camera</button>
+            </div>
+            <div id="cameraContainer" style="display: none;"></div>
+        </div>
 
-        h1 {
-            font-size: 25px;
-            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-        }
-    </style>
-</head>
-
-<body>
-    <div class="app_container">
-        <h1>Kofax Capture App</h1>
-        <button id="captureButton">Start Camera</button>
-        <div id="cameraContainer"></div>
-        <!-- <img id="capturedImage" alt="Captured Image" /> -->
-    </div>
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            // Get default options
-            KfxWebSDK.Capture.getDefaultOptions(function(defaultOptions) {
-                console.info('Default options retrieved successfully:', defaultOptions);
-
-                defaultOptions.containerId = "cameraContainer";
-                defaultOptions.preference = "camera";
-                defaultOptions.useVideoStream = true;
-                defaultOptions.preview = true;
-
-                // Initialize the capture control with default options
-                KfxWebSDK.Capture.create(defaultOptions, function(createSuccess) {
-                    console.info('Capture control created successfully.');
-
-                    // Set additional capture options if needed
-                    var captureOptions = {
-                        useTargetFrameCrop: false,
-                        frameAspectRatio: 0.628,
-                        framePadding: 5,
-                        frameCornerHeight: 15,
-                        frameCornerWidth: 70,
-                        frameCornerColor: '#00FF00',
-                        resolution: KfxWebSDK.resolution.RES_FULL_HD,
-                        downscaleSize: 2,
-                        outOfFrameTransparency: 0.5,
-                        showEdges: false,
-                        edgesColor: '#FFFF00',
-                        edgesWidth: 4,
-                        enableFlashCapture: false,
-                        guidanceSize: 150,
-                        criteria: {
-                            captureTimeout: 1700,
-                            centerToleranceFraction: 0.15,
-                            longAxisThreshold: 85,
-                            shortAxisThreshold: 60,
-                            maxFillFraction: 1.8,
-                            minFillFraction: 0.65,
-                            turnSkewAngleTolerance: 10,
-                            pitchThreshold: 15,
-                            rollThreshold: 15
-                        },
-                        lookAndFeel: {
-                            // documentSample: 'http://example.com/images/document_sample.jpg',
-                            showTapToDismissMessage: true,
-                            forceCapture: 10,
-                            gallery: true
-                        }
-                    };
-
-                    KfxWebSDK.Capture.setOptions(captureOptions, function() {
-                        console.info('Capture options set successfully.');
-                    }, function(error) {
-                        console.error('Error setting capture options:', error);
-                    });
-
-                }, function(error) {
-                    console.error('Error creating capture control:', error);
-                });
-
-            }, function(error) {
-                console.error('Error retrieving default options:', error);
-            });
-
-            // Capture image on button click
-            document.getElementById('captureButton').addEventListener('click', function() {
-                KfxWebSDK.Capture.takePicture(function(imageData) {
-                    console.info('Image captured successfully:', imageData);
-                    // Display the captured image
-                    var capturedImageElement = document.getElementById('capturedImage');
-                    capturedImageElement.src = 'data:image/jpeg;base64,' + imageData;
-                }, function(error) {
-                    console.error('Error capturing image:', error);
-                });
-            });
-        });
-    </script>
-</body>
+    </body>
 </html>

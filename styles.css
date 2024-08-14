@@ -1,0 +1,56 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+#cameraContainer {
+    border-radius: 30px;
+    width: 70%;
+    height: 80%;
+    padding: 10px;
+}
+
+#captureButton, #stopButton, #downloadButton {
+    margin-top: 5px;
+    margin-bottom: 20px;
+    color: white;
+    border-radius: 15px;
+    font-size: 15px;
+    font-weight: 700;
+    background-color: #277EB7;
+    border: none;
+    cursor: pointer;
+    width: 30%;
+    padding: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+#captureButton:hover, #stopButton:hover, #downloadButton:hover {
+    background-color: #575757;
+}
+
+.app_container {
+    padding: 10px;
+    height: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    min-width: 300px;
+}
+
+.button_container {
+    width: 100%;
+    display: flex;
+    justify-content: center; 
+    gap: 30px; 
+    height: 6%;
+}
+
+h1 {
+    font-size: 25px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}

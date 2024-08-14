@@ -1,194 +1,112 @@
-function test() {
-    KfxWebSDK.Capture.choosePictureAsBase64(
-        function(base64Image) {
-            // Success callback
-            var imgElement = document.getElementById('capturedImage');
-            imgElement.src = 'data:image/png;base64,' + base64Image;
-            imgElement.style.display = 'block';
-        },
-        function(error) {
-            // Error callback
-            console.error('Error capturing image:', error);
-        }
-    );
-}
 
-// Include the provided JavaScript code here
-var performStandardCapture = function (
-    cameraOptions,
-    successCallback,
-    errorCallback
-) {
-    KfxWebSDK.Capture.create(
-        cameraOptions,
-        function (createSuccess) {
-            KfxWebSDK.Capture.takePicture(
-                function (imageData) {
-                    sendCallback(successCallback, imageData);
-                },
-                function (takePictureError) {
-                    console.log(
-                        "Error while take picture is " +
-                            takePictureError.message
-                    );
-                    sendCallback(errorCallback, takePictureError.message);
-                }
-            );
-        },
-        function (createError) {
-            alert("Camera is unavailable");
-            console.log(
-                "Error while creating capture is " + createError.message
-            );
-            sendCallback(errorCallback, createError.message);
-        }
-    );
-};
-
-var performAdvancedCapture = function (
-    cameraOptions,
-    captureOptions,
-    successCallback,
-    errorCallback
-) {
-    //Set the boolean value to false when the camera is launched successfully
-    cameraDisabled = false;
-    KfxWebSDK.Capture.destroy(
-        function () {
-            KfxWebSDK.Capture.create(
-                cameraOptions,
-                function (createSuccess) {
-                    KfxWebSDK.Capture.setOptions(
-                        captureOptions,
-                        function (setOptionsSuccess) {
-                            KfxWebSDK.Capture.takePicture(
-                                function (imageData, flashCaptureData) {
-                                    successCallback(
-                                        imageData,
-                                        flashCaptureData
-                                    );
-                                },
-                                function (takePictureError) {
-                                    console.log(
-                                        "Error while take picture is " +
-                                            takePictureError.message
-                                    );
-                                    sendCallback(
-                                        errorCallback,
-                                        takePictureError.message
-                                    );
-                                }
-                            );
-                        },
-                        function (setOptionsError) {
-                            console.log(
-                                "Error while setting options is " +
-                                    setOptionsError.message
-                            );
-                            sendCallback(
-                                errorCallback,
-                                setOptionsError.message
-                            );
-                        }
-                    );
-                },
-                function (createError) {
-                    //When camera is not created due to secuity reasons this error code is returned
-                    if (createError.code == KfxWebSDK.ERROR_CODE_MEDIA) {
-                        //Set the boolean value to true as camera is disabled
-                        cameraDisabled = true;
-                    }
-                    console.log(
-                        "Error while creating capture is " +
-                            createError.message
-                    );
-                    sendCallback(errorCallback, createError.message);
-                }
-            );
-        },
-        function (forceDestroyError) {
-            console.log(
-                "Error while force destroying resources is " +
-                    forceDestroyError.message
-            );
-            sendCallback(errorCallback, forceDestroyError.message);
-        }
-    );
-};
-
-var stopCapture = function (successCallback, errorCallback) {
-    KfxWebSDK.Capture.stopCapture(
-        function (stopCaptureSuccess) {
-            sendCallback(successCallback, stopCaptureSuccess);
-        },
-        function (stopCaptureError) {
-            console.log(
-                "Error while stop capture is " + stopCaptureError.message
-            );
-            sendCallback(errorCallback, stopCaptureError);
-        }
-    );
-};
-
-var destroy = function () {
-    KfxWebSDK.Capture.destroy(
-        function () {},
-        function (destroyError) {
-            console.log(
-                "Error while destroy capture is " + destroyError.message
-            );
-        }
-    );
-};
-
-var sendCallback = function (callback, data) {
-    if (typeof callback === "function") {
-        callback(data);
+// Set additional capture options if needed
+var captureOptions = {
+    useTargetFrameCrop: false,
+    frameAspectRatio: 0.628,
+    framePadding: 5,
+    frameCornerHeight: 15,
+    frameCornerWidth: 70,
+    frameCornerColor: '#00FF00',
+    resolution: KfxWebSDK.resolution.RES_FULL_HD,
+    downscaleSize: 2,
+    outOfFrameTransparency: 0.5,
+    showEdges: false,
+    edgesColor: '#FFFF00',
+    edgesWidth: 4,
+    enableFlashCapture: false,
+    guidanceSize: 150,
+    criteria: {
+        captureTimeout: 1700,
+        centerToleranceFraction: 0.15,
+        longAxisThreshold: 85,
+        shortAxisThreshold: 60,
+        maxFillFraction: 1.8,
+        minFillFraction: 0.65,
+        turnSkewAngleTolerance: 10,
+        pitchThreshold: 15,
+        rollThreshold: 15
+    },
+    lookAndFeel: {
+        // documentSample: 'http://example.com/images/document_sample.jpg',
+        showTapToDismissMessage: true,
+        forceCapture: 10,
+        gallery: true
     }
 };
 
-// Check if the browser and the device model support web capture or not
-var checkForAutoCaptureSupport = function (successCallback, errorCallback) {
-    KfxWebSDK.Utilities.supportsAutoCapture(
-        function () {
-            successCallback();
-        },
-        function () {
-            errorCallback();
-        }
-    );
-};
-
-// Event listeners for buttons
 document.addEventListener("DOMContentLoaded", function () {
-    document.getElementById("standardCaptureBtn").addEventListener("click", function () {
-        var cameraOptions = {}; // Define your camera options here
-        performStandardCapture(cameraOptions, function (imageData) {
-            console.log("Image captured:", imageData);
-        }, function (error) {
-            console.error("Error capturing image:", error);
+    // Get default options
+    KfxWebSDK.Capture.getDefaultOptions(function(defaultOptions) {
+        console.info('Default options retrieved successfully:', defaultOptions);
+
+        defaultOptions.containerId = "cameraContainer";
+        defaultOptions.preference = "camera";
+        defaultOptions.useVideoStream = true;
+        defaultOptions.preview = true;
+
+        // Initialize the capture control with default options
+        KfxWebSDK.Capture.create(defaultOptions, function(createSuccess) {
+            console.log('Capture control created successfully.');
+
+            KfxWebSDK.Capture.setOptions(captureOptions, function() {
+                console.log('Capture options set successfully.');
+            }, function(error) {
+                console.error('Error setting capture options:', error);
+            });
+
+        }, function(error) {
+            console.error('Error creating capture control:', error);
+        });
+
+    }, function(error) {
+        console.error('Error retrieving default options:', error);
+    });
+
+    // Capture image on button click
+    document.getElementById('captureButton').addEventListener('click', function() {
+        document.getElementById('cameraContainer').style.display = 'block';
+        document.getElementById('stopButton').style.display = 'block';
+        document.getElementById('captureButton').style.display = 'none';
+
+        KfxWebSDK.Capture.takePicture(function(imageData) {
+            // successCallback
+            console.info('Image captured successfully:', imageData);
+
+            // Display the captured image
+            var capturedImageElement = document.getElementById('capturedImage');
+            capturedImageElement.src = 'data:image/jpeg;base64,' + imageData;
+
+            // Show the download button
+            var downloadButton = document.getElementById('downloadButton');
+            downloadButton.style.display = 'block';
+
+            // Set up the download link
+            downloadButton.addEventListener('click', function() {
+                var link = document.createElement('a');
+                link.href = 'data:image/jpeg;base64,' + imageData;
+                link.download = 'captured_image.jpg';
+                link.click();
+            });
+
+        }, function(error) {
+            // errorCallback
+            console.error('Error capturing image:', error);
         });
     });
 
-    document.getElementById("advancedCaptureBtn").addEventListener("click", function () {
-        var cameraOptions = {}; // Define your camera options here
-        var captureOptions = {}; // Define your capture options here
-        performAdvancedCapture(cameraOptions, captureOptions, function (imageData, flashCaptureData) {
-            console.log("Image captured:", imageData, flashCaptureData);
-        }, function (error) {
-            console.error("Error capturing image:", error);
-        });
-    });
+    // Stop Capturing image on button click
+    document.getElementById('stopButton').addEventListener('click', function() {
+        document.getElementById('stopButton').style.display = 'none';
+        document.getElementById('downloadButton').style.display = 'none';
+        document.getElementById('cameraContainer').style.display = 'none';
+        document.getElementById('captureButton').style.display = 'block';
 
-    document.getElementById("stopCaptureBtn").addEventListener("click", function () {
-        stopCapture(function (success) {
-            console.log("Capture stopped:", success);
-        }, function (error) {
-            console.error("Error stopping capture:", error);
+        KfxWebSDK.Capture.stopCapture(function() {
+            // successCallback
+            console.info('Stopped Capturing Image:');
+        }, function(error) {
+            // errorCallback
+            console.error('Error capturing image:', error);
         });
-    });
-
-    document.getElementById("destroyBtn").addEventListener("click", function () {
-        destroy();
     });
 });

@@ -1,4 +1,7 @@
+
+
 document.addEventListener("DOMContentLoaded", function () {
+
     // Get default options
     KfxWebSDK.Capture.getDefaultOptions(function(defaultOptions) {
         console.info('Default options retrieved successfully:', defaultOptions);
@@ -52,14 +55,18 @@ document.addEventListener("DOMContentLoaded", function () {
                 console.log('Capture options set successfully.');
             }, function(error) {
                 console.error('Error setting capture options:', error);
+                document.getElementById('test').innerHTML = 'Error setting capture options: ' + error.message;
             });
 
         }, function(error) {
             console.error('Error creating capture control:', error);
+            document.getElementById('test').innerHTML = 'Error creating capture control: ' + error.message;
         });
+
 
     }, function(error) {
         console.error('Error retrieving default options:', error);
+        document.getElementById('test').innerHTML = 'Error retrieving default options: ' + error.message;
     });
 
     // Capture image on button click
@@ -89,6 +96,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }, function(error) {
             // errorCallback
             console.error('Error capturing image:', error);
+            document.getElementById('test').innerHTML = 'Error capturing image: ' + error.message;
         });
 
         document.getElementById('captureButton').style.display = 'none';
@@ -97,13 +105,14 @@ document.addEventListener("DOMContentLoaded", function () {
     // Stop Capturing image on button click
     document.getElementById('stopButton').addEventListener('click', function() {
 
-        KfxWebSDK.Capture.stopCapture(function(error) {
-            // successCallback
-            console.info('Successfully stopping image:', error);
-        }, function(error) {
-            // errorCallback
-            console.error('Error stopping image:', error);
-        });
+        // KfxWebSDK.Capture.stopCapture(function(error) {
+        //     // successCallback
+        //     console.info('Successfully stopping image:', error);
+        // }, function(error) {
+        //     // errorCallback
+        //     document.getElementById('test').innerHTML = 'Error stopping image: ' + error.message;
+        //     console.error('Error stopping image:', error);
+        // });
 
         document.getElementById('test').innerHTML = 'Stopped Capturing Image';
         document.getElementById('stopButton').style.display = 'none';
@@ -113,7 +122,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     });
 });
-
 
 
 function convertImageDataToBase64(imageData) {

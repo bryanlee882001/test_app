@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Get default options
     KfxWebSDK.Capture.getDefaultOptions(function(defaultOptions) {
         console.info('Default options retrieved successfully:', defaultOptions);
+        document.getElementById('test').innerHTML = 'Default Options Retrieved Successfully';
 
         // Set additional capture options if needed
         var captureOptions = {
@@ -31,7 +32,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 rollThreshold: 15
             },
             lookAndFeel: {
-                // documentSample: 'http://example.com/images/document_sample.jpg',
                 showTapToDismissMessage: true,
                 forceCapture: 10,
                 gallery: true
@@ -42,12 +42,11 @@ document.addEventListener("DOMContentLoaded", function () {
         defaultOptions.preference = "camera";
         defaultOptions.useVideoStream = true;
         defaultOptions.preview = true;
-        // defaultOptions.lookAndFeel.documentSample = "../images/demo_bill.svg";
-        // defaultOptions.downloadButton = "";
 
         // Initialize the capture control with default options
         KfxWebSDK.Capture.create(defaultOptions, function(createSuccess) {
             console.log('Capture control created successfully.');
+            document.getElementById('test').innerHTML = 'Capture control created successfully';
 
             KfxWebSDK.Capture.setOptions(captureOptions, function() {
                 console.log('Capture options set successfully.');
@@ -69,49 +68,64 @@ document.addEventListener("DOMContentLoaded", function () {
         // Show CameraContainer
         document.getElementById('cameraContainer').style.display = 'block';
         document.getElementById('stopButton').style.display = 'block';
-        document.getElementById('captureButton').style.display = 'none';
 
         KfxWebSDK.Capture.takePicture(function(imageData) {
             // successCallback
             console.info('Image captured successfully:', imageData);
+            document.getElementById('test').innerHTML = 'Image captured successfully';
 
-            // alert('successfully taken picture' + imageData);
+            // Show the download button
+            var downloadButton = document.getElementById('downloadButton');
+            downloadButton.style.display = 'block';
 
-            // // Display the captured image
-            // var capturedImageElement = document.getElementById('capturedImage');
-            // capturedImageElement.src = 'data:image/jpeg;base64,' + imageData;
-
-            // // Show the download button
-            // var downloadButton = document.getElementById('downloadButton');
-            // downloadButton.style.display = 'block';
-
-            // // Set up the download link
-            // downloadButton.addEventListener('click', function() {
-            //     var link = document.createElement('a');
-            //     link.href = 'data:image/jpeg;base64,' + imageData;
-            //     link.download = 'captured_image.jpg';
-            //     link.click();
-            // });
+            // Set up the download link
+            downloadButton.addEventListener('click', function() {
+                var link = document.createElement('a');
+                link.href = 'data:image/jpeg;base64,' + convertImageDataToBase64(imageData);
+                link.download = 'captured_image.jpg';
+                link.click();
+            });
 
         }, function(error) {
             // errorCallback
             console.error('Error capturing image:', error);
         });
+
+        document.getElementById('captureButton').style.display = 'none';
     });
 
     // Stop Capturing image on button click
     document.getElementById('stopButton').addEventListener('click', function() {
+
+        KfxWebSDK.Capture.stopCapture(function(error) {
+            // successCallback
+            console.info('Successfully stopping image:', error);
+        }, function(error) {
+            // errorCallback
+            console.error('Error stopping image:', error);
+        });
+
+        document.getElementById('test').innerHTML = 'Stopped Capturing Image';
         document.getElementById('stopButton').style.display = 'none';
         document.getElementById('downloadButton').style.display = 'none';
         document.getElementById('cameraContainer').style.display = 'none';
         document.getElementById('captureButton').style.display = 'block';
 
-        KfxWebSDK.Capture.stopCapture(function() {
-            // successCallback
-            console.info('Stopped Capturing Image:');
-        }, function(error) {
-            // errorCallback
-            console.error('Error capturing image:', error);
-        });
     });
 });
+
+
+
+function convertImageDataToBase64(imageData) {
+    var canvas = document.createElement("canvas");
+    canvas.width = imageData.width;
+    canvas.height = imageData.height;
+    var context = canvas.getContext("2d");
+    context.putImageData(imageData, 0, 0);
+    var dataUrl = canvas.toDataURL("image/jpeg");
+    var base64 = dataUrl.replace(/^data:image\/(jpeg|png|jpg);base64,/, "");
+    context = null;
+    canvas = null;
+    dataUrl = null;
+    return base64;
+}

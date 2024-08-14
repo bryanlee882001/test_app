@@ -42,6 +42,7 @@ document.addEventListener("DOMContentLoaded", function () {
         defaultOptions.preference = "camera";
         defaultOptions.useVideoStream = true;
         defaultOptions.preview = true;
+        defaultOptions.downloadButton = true;
 
         // Initialize the capture control with default options
         KfxWebSDK.Capture.create(defaultOptions, function(createSuccess) {
@@ -63,6 +64,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Capture image on button click
     document.getElementById('captureButton').addEventListener('click', function() {
+
+        // Show CameraContainer
         document.getElementById('cameraContainer').style.display = 'block';
         document.getElementById('stopButton').style.display = 'block';
         document.getElementById('captureButton').style.display = 'none';
@@ -71,24 +74,23 @@ document.addEventListener("DOMContentLoaded", function () {
             // successCallback
             console.info('Image captured successfully:', imageData);
 
-            document.getElementById('test').innerHTML = 'Cheese'
-            alert('successfully taken picture')
+            // alert('successfully taken picture' + imageData);
 
-            // Display the captured image
-            var capturedImageElement = document.getElementById('capturedImage');
-            capturedImageElement.src = 'data:image/jpeg;base64,' + imageData;
+            // // Display the captured image
+            // var capturedImageElement = document.getElementById('capturedImage');
+            // capturedImageElement.src = 'data:image/jpeg;base64,' + imageData;
 
-            // Show the download button
-            var downloadButton = document.getElementById('downloadButton');
-            downloadButton.style.display = 'block';
+            // // Show the download button
+            // var downloadButton = document.getElementById('downloadButton');
+            // downloadButton.style.display = 'block';
 
-            // Set up the download link
-            downloadButton.addEventListener('click', function() {
-                var link = document.createElement('a');
-                link.href = 'data:image/jpeg;base64,' + imageData;
-                link.download = 'captured_image.jpg';
-                link.click();
-            });
+            // // Set up the download link
+            // downloadButton.addEventListener('click', function() {
+            //     var link = document.createElement('a');
+            //     link.href = 'data:image/jpeg;base64,' + imageData;
+            //     link.download = 'captured_image.jpg';
+            //     link.click();
+            // });
 
         }, function(error) {
             // errorCallback

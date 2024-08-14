@@ -17,9 +17,10 @@
         
         #cameraContainer {
             border-radius: 30px;
-            width: 50%;
+            width: 70%;
             height: 80%;
             border: 1px solid #ccc;
+            padding: 10px;
         }
         
         #capturedImage {
@@ -31,10 +32,11 @@
             margin-top: 10px;
             margin-bottom: 20px;
             color: white;
-            border-radius: 15px;;
+            border-radius: 15px;
+            font-size: 20px;
             background-color: #277EB7;
             border: none;
-            width: 10%;
+            width: 20%;
             height: 5%;
         }
 
@@ -45,9 +47,11 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            text-align: center;
         }
 
         h1 {
+            font-size: 30px;
             font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
         }
     </style>
@@ -66,7 +70,6 @@
             KfxWebSDK.Capture.getDefaultOptions(function(defaultOptions) {
                 console.info('Default options retrieved successfully:', defaultOptions);
 
-                // Modify default options if needed
                 defaultOptions.containerId = "cameraContainer";
                 defaultOptions.preference = "camera";
                 defaultOptions.useVideoStream = true;

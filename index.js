@@ -65,7 +65,7 @@ function DisplayCameraUI() {
             2: { ratio: 0.629, message: 'User selected MobileId' },
             3: { ratio: 0.703, message: 'User selected Passport' },
             4: { ratio: 0.623, message: 'User selected Credit Card' },
-            5: { ratio: 0.615, message: 'User selected Pay Bill' }
+            5: { ratio: 0.615, message: 'User selected Py Bill' }
         };
 
         const selectedOption = aspectRatios[select.value];
@@ -79,6 +79,30 @@ function DisplayCameraUI() {
         KfxWebSDK.Capture.create(defaultOptions, function(createSuccess) {
             console.info('Capture control created successfully:', createSuccess);
             document.getElementById('error_message').innerHTML = 'Capture control created successfully';
+
+            document.getElementById('cameraContainer').style.display = 'block';
+
+            KfxWebSDK.Capture.takePicture(function(imageData) {
+                console.info('Image captured successfully:', imageData);
+                
+                document.getElementById('review_container').style.display = 'block';
+                var reviewControl = new KfxWebSDK.ReviewControl('review_container');
+                reviewControl.review(imageData, function() {
+                    
+                    console.log("I want it");
+                }, function() {
+        
+                    console.log("I want to retake");
+        
+                })
+        
+            }, function(error) {
+                console.error('Error capturing image:', error);
+        
+                if (error.code == 0) {
+                    KfxWebSDK.destroy();
+                }
+            });
             
             // KfxWebSDK.Capture.setOptions(captureOptions, function() {
 
@@ -112,30 +136,6 @@ function DisplayCameraUI() {
             KfxWebSDK.destroy();
         }
     });
-
-    document.getElementById('cameraContainer').style.display = 'block';
-
-    KfxWebSDK.Capture.takePicture(function(imageData) {
-        console.info('Image captured successfully:', imageData);
-        
-        document.getElementById('review_container').style.display = 'block';
-        var reviewControl = new KfxWebSDK.ReviewControl('review_container');
-        reviewControl.review(imageData, function() {
-
-            console.log("I want it");
-        }, function() {
-
-            console.log("I want to retake");
-
-            // // retakeCallback
-            // KfxWebSDK.destroy();
-        })
-
-    }, function(error) {
-        console.error('Error capturing image:', error);
-
-        if (error.code == 0) {
-            KfxWebSDK.destroy();
-        }
-    });
 }
+
+

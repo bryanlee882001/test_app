@@ -59,6 +59,7 @@ function DisplayCameraUI() {
         defaultOptions.preference = "camera";
         defaultOptions.useVideoStream = true;
         defaultOptions.preview = true;
+        defaultOptions.frameAspectRatio = 0;
         // defaultOptions.framePadding = 14;
 
         // const aspectRatios = {

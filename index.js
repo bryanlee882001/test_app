@@ -66,7 +66,7 @@ function DisplayCameraUI() {
             2: { ratio: 0.629, message: 'User selected MobileId' },
             3: { ratio: 0.703, message: 'User selected Passport' },
             4: { ratio: 0.623, message: 'User selected Credit Card' },
-            5: { ratio: 0.615, message: 'User selected Py Bill' }
+            5: { ratio: 0.615, message: 'User selected Pay Bill' }
         };
 
         const selectedOption = aspectRatios[select.value];
@@ -81,29 +81,58 @@ function DisplayCameraUI() {
             console.info('Capture control created successfully:', createSuccess);
             document.getElementById('error_message').innerHTML = 'Capture control created successfully';
 
-            setTimeout(takePic, 1000);
-            
-            // KfxWebSDK.Capture.setOptions(captureOptions, function() {
+            // Set additional capture options if needed
+            var captureOptions = {
+                useTargetFrameCrop: false,
+                frameAspectRatio: 0.628,
+                framePadding: 5,
+                frameCornerHeight: 15,
+                frameCornerWidth: 70,
+                frameCornerColor: '#00FF00',
+                resolution: KfxWebSDK.resolution.RES_FULL_HD,
+                downscaleSize: 2,
+                outOfFrameTransparency: 0.5,
+                showEdges: false,
+                edgesColor: '#FFFF00',
+                edgesWidth: 4,
+                enableFlashCapture: false,
+                guidanceSize: 150,
+                criteria: {
+                    captureTimeout: 1700,
+                    centerToleranceFraction: 0.15,
+                    longAxisThreshold: 85,
+                    shortAxisThreshold: 60,
+                    maxFillFraction: 1.8,
+                    minFillFraction: 0.65,
+                    turnSkewAngleTolerance: 10,
+                    pitchThreshold: 15,
+                    rollThreshold: 15
+                },
+                lookAndFeel: {
+                    // documentSample: 'http://example.com/images/document_sample.jpg',
+                    showTapToDismissMessage: true,
+                    forceCapture: 10,
+                    gallery: true
+                }
+            };
 
-            //     console.info('Capture options set successfully.', captureOptions);
-            //     document.getElementById('error_message').innerHTML = 'Capture options set successfully';
-                
-            // }, function(error) {
+            KfxWebSDK.Capture.setOptions(captureOptions, function() {
+                console.info('Capture options set successfully.');
+                document.getElementById('error_message').innerHTML = 'Capture options set successfully';
 
-            //     console.error('Error setting capture options:', error);
-            //     document.getElementById('error_message').innerHTML = 'Error setting capture options: ' + error.message;
+            }, function(error) {
+                console.error('Error setting capture options:', error);
+                document.getElementById('error_message').innerHTML = 'Error setting capture options: ' + error.message;
 
-            //     if (error.code == 0) {
-            //         KfxWebSDK.destroy();
-            //     }
-            // });
-            
+            });
+
+            setTimeout(takePic, 1000);            
         }, function(error) {
             console.error('Error creating capture control:', error);
             document.getElementById('error_message').innerHTML = 'Error creating capture control: ' + error.message;
 
             if (error.code == 0) {
-                KfxWebSDK.destroy();
+                KfxWebSDK.Capture.destroy();
             }
         });
 
@@ -112,11 +141,10 @@ function DisplayCameraUI() {
         document.getElementById('error_message').innerHTML = 'Error retrieving default options: ' + error.message;
         
         if (error.code == 0) {
-            KfxWebSDK.destroy();
+            KfxWebSDK.Capture.destroy();
         }
     });
 }
-
 
 
 function takePic() {

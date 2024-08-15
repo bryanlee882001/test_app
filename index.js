@@ -1,4 +1,5 @@
 
+// Alternative Capture Options
 var captureOptions = {
     useTargetFrameCrop: false,
     frameAspectRatio: 0.628,
@@ -32,8 +33,21 @@ var captureOptions = {
     }
 };
 
+// Display Camera UI when user selects a document type to scan
+function SelectChange() {
+    setTimeout(DisplayCameraUI, 1000);
+};
 
-document.addEventListener("DOMContentLoaded", function () {
+// Display Camera UI on change in selection
+function DisplayCameraUI() {
+
+    // User has to select a document type
+    const select = document.getElementById('document_select');
+    if (select.value == 0) {
+        alert('Select a Document Type');
+
+        return;
+    }
 
     // Get default options
     KfxWebSDK.Capture.getDefaultOptions(function(defaultOptions) {
@@ -46,11 +60,25 @@ document.addEventListener("DOMContentLoaded", function () {
         defaultOptions.useVideoStream = true;
         defaultOptions.preview = true;
 
+        const aspectRatios = {
+            1: { ratio: 0.46, message: 'User selected Check' },
+            2: { ratio: 0.629, message: 'User selected MobileId' },
+            3: { ratio: 0.703, message: 'User selected Passport' },
+            4: { ratio: 0.623, message: 'User selected Credit Card' },
+            5: { ratio: 0.615, message: 'User selected Pay Bill' }
+        };
+
+        const selectedOption = aspectRatios[select.value];
+        if (selectedOption) {
+            defaultOptions.frameAspectRatio = selectedOption.ratio;
+            console.info(selectedOption.message);
+            document.getElementById('error_message').innerHTML = selectedOption.message;
+        }
+
         // Initialize the capture control with default options
         KfxWebSDK.Capture.create(defaultOptions, function(createSuccess) {
             console.info('Capture control created successfully:', createSuccess);
             document.getElementById('error_message').innerHTML = 'Capture control created successfully';
-
             
             // KfxWebSDK.Capture.setOptions(captureOptions, function() {
 
@@ -84,16 +112,6 @@ document.addEventListener("DOMContentLoaded", function () {
             KfxWebSDK.destroy();
         }
     });
-});
-
-
-// Capture image on button click
-function SelectChange() {
-    setTimeout(DisplayCameraUI, 1000)
-};
-
-
-function DisplayCameraUI() {
 
     document.getElementById('cameraContainer').style.display = 'block';
 

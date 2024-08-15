@@ -86,6 +86,8 @@ document.addEventListener("DOMContentLoaded", function () {
     // Get default options
     KfxWebSDK.Capture.getDefaultOptions(function(defaultOptions) {
         console.info('Default options retrieved successfully:', defaultOptions);
+        document.getElementById('error_message').innerHTML = 'Default options retrieved successfully';
+
         // Modify default options if needed
         defaultOptions.containerId = "cameraContainer";
         defaultOptions.preference = "camera";
@@ -95,6 +97,8 @@ document.addEventListener("DOMContentLoaded", function () {
         // Initialize the capture control with default options
         KfxWebSDK.Capture.create(defaultOptions, function(createSuccess) {
             console.info('Capture control created successfully.');
+            document.getElementById('error_message').innerHTML = 'Capture control created successfully';
+
             // Set additional capture options if needed
             var captureOptions = {
                 useTargetFrameCrop: false,
@@ -131,13 +135,21 @@ document.addEventListener("DOMContentLoaded", function () {
             };
             KfxWebSDK.Capture.setOptions(captureOptions, function() {
                 console.info('Capture options set successfully.');
+                document.getElementById('error_message').innerHTML = 'Capture options set successfully';
+
             }, function(error) {
                 console.error('Error setting capture options:', error);
+                document.getElementById('error_message').innerHTML = 'Error setting capture options:' + error.message;
+
             });
         }, function(error) {
             console.error('Error creating capture control:', error);
+            document.getElementById('error_message').innerHTML = 'Error creating capture control:' + error.message;
+
         });
     }, function(error) {
         console.error('Error retrieving default options:', error);
+        document.getElementById('error_message').innerHTML = 'Error retrieving default options:' + error.message;
+
     });
 });

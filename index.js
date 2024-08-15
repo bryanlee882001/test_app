@@ -1,12 +1,11 @@
 
 
 document.addEventListener("DOMContentLoaded", function () {
-    var error_message_div = document.getElementById('error_message').innerHTML;
 
     // Get default options
     KfxWebSDK.Capture.getDefaultOptions(function(defaultOptions) {
         console.info('Default options retrieved successfully:', defaultOptions);
-        error_message_div = 'Default options retrieved successfully';
+        document.getElementById('error_message').innerHTML = 'Default options retrieved successfully';
         
         // Modify default options if needed
         defaultOptions.containerId = "cameraContainer";
@@ -17,7 +16,7 @@ document.addEventListener("DOMContentLoaded", function () {
         // Initialize the capture control with default options
         KfxWebSDK.Capture.create(defaultOptions, function(createSuccess) {
             console.info('Capture control created successfully.');
-            error_message_div = 'Capture control created successfully';
+            document.getElementById('error_message').innerHTML = 'Capture control created successfully';
 
             // Set additional capture options if needed
             var captureOptions = {
@@ -56,20 +55,20 @@ document.addEventListener("DOMContentLoaded", function () {
             
             KfxWebSDK.Capture.setOptions(captureOptions, function() {
                 console.info('Capture options set successfully.');
-                error_message_div = 'Capture options set successfully';
+                document.getElementById('error_message').innerHTML = 'Capture options set successfully';
             }, function(error) {
                 console.error('Error setting capture options:', error);
-                error_message_div = 'Error setting capture options: ' + error.message;
+                document.getElementById('error_message').innerHTML = 'Error setting capture options: ' + error.message;
             });
             
         }, function(error) {
             console.error('Error creating capture control:', error);
-            error_message_div = 'Error creating capture control: ' + error.message;
+            document.getElementById('error_message').innerHTML = 'Error creating capture control: ' + error.message;
         });
 
     }, function(error) {
         console.error('Error retrieving default options:', error);
-        error_message_div = 'Error retrieving default options: ' + error.message;
+        document.getElementById('error_message').innerHTML = 'Error retrieving default options: ' + error.message;
     });
 
     // Capture image on button click
@@ -77,11 +76,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
         KfxWebSDK.Capture.takePicture(function(imageData) {
             console.info('Image captured successfully:', imageData);
-            error_message_div = 'Image captured successfully';
+            document.getElementById('error_message').innerHTML = 'Image captured successfully';
 
         }, function(error) {
             console.error('Error capturing image:', error);
-            error_message_div= 'Error capturing image: ' + error.message;
+            document.getElementById('error_message').innerHTML= 'Error capturing image: ' + error.message;
         });
     });
 });

@@ -7,6 +7,7 @@ html, body {
 
 #error_message {
     width: 50%;
+    color: black;
 }
 
 #cameraContainer {
@@ -27,6 +28,7 @@ html, body {
     border: none;
     cursor: pointer;
     width: 150px;
+    height: 50px;
     padding: 10px;
     box-sizing: border-box;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -52,7 +54,6 @@ html, body {
     display: flex;
     justify-content: center; 
     gap: 30px; 
-    height: 10%;
 }
 
 h1 {

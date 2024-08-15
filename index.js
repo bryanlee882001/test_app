@@ -3,7 +3,7 @@
 var captureOptions = {
     useTargetFrameCrop: false,
     frameAspectRatio: 0.628,
-    framePadding: 5,
+    framePadding: 14,
     frameCornerHeight: 15,
     frameCornerWidth: 70,
     frameCornerColor: '#277EB7',
@@ -49,6 +49,11 @@ function DisplayCameraUI() {
         return;
     }
 
+    // Destory existing Kofax
+    if (KfxWebSDK) {
+        KfxWebSDK.destroy();
+    }
+
     // Get default options
     KfxWebSDK.Capture.getDefaultOptions(function(defaultOptions) {
         console.info('Default options retrieved successfully:', defaultOptions);
@@ -59,6 +64,7 @@ function DisplayCameraUI() {
         defaultOptions.preference = "camera";
         defaultOptions.useVideoStream = true;
         defaultOptions.preview = true;
+        defaultOptions.framePadding = 14;
 
         const aspectRatios = {
             1: { ratio: 0.46, message: 'User selected Check' },
@@ -79,30 +85,37 @@ function DisplayCameraUI() {
         KfxWebSDK.Capture.create(defaultOptions, function(createSuccess) {
             console.info('Capture control created successfully:', createSuccess);
             document.getElementById('error_message').innerHTML = 'Capture control created successfully';
-
+            
+            // Take Picture
             document.getElementById('cameraContainer').style.display = 'block';
-
             KfxWebSDK.Capture.takePicture(function(imageData) {
                 console.info('Image captured successfully:', imageData);
+                document.getElementById('error_message').innerHTML = 'Image captured successfully';
                 
+                // Review Picture
                 document.getElementById('review_container').style.display = 'block';
                 var reviewControl = new KfxWebSDK.ReviewControl('review_container');
                 reviewControl.review(imageData, function() {
                     
                     console.log("I want it");
                 }, function() {
-        
+            
                     console.log("I want to retake");
-        
+            
                 })
-        
+
             }, function(error) {
                 console.error('Error capturing image:', error);
+                document.getElementById('error_message').innerHTML = 'Error capturing image: ' + error.message;
         
                 if (error.code == 0) {
+                    console.info('Kofax Web destoyed');
                     KfxWebSDK.destroy();
                 }
+        
+                document.getElementById('cameraContainer').style.display = 'none';
             });
+
             
             // KfxWebSDK.Capture.setOptions(captureOptions, function() {
 
@@ -137,5 +150,3 @@ function DisplayCameraUI() {
         }
     });
 }
-
-

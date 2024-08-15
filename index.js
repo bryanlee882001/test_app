@@ -1,39 +1,3 @@
-
-// Alternative Capture Options
-var captureOptions = {
-    useTargetFrameCrop: false,
-    frameAspectRatio: 0.628,
-    framePadding: 14,
-    frameCornerHeight: 15,
-    frameCornerWidth: 70,
-    frameCornerColor: '#277EB7',
-    resolution: KfxWebSDK.resolution.RES_FULL_HD,
-    downscaleSize: 2,
-    outOfFrameTransparency: 0.5,
-    showEdges: false,
-    edgesColor: '#FFFF00',
-    edgesWidth: 4,
-    enableFlashCapture: false,
-    guidanceSize: 150,
-    criteria: {
-        captureTimeout: 1700,
-        centerToleranceFraction: 0.15,
-        longAxisThreshold: 85,
-        shortAxisThreshold: 60,
-        maxFillFraction: 1.8,
-        minFillFraction: 0.65,
-        turnSkewAngleTolerance: 10,
-        pitchThreshold: 15,
-        rollThreshold: 15
-    },
-    lookAndFeel: {
-        showTapToDismissMessage: true,
-        forceCapture: 10,
-        gallery: true
-    }
-};
-
-
 document.addEventListener("DOMContentLoaded", function () {
     
     // Get default options
@@ -86,6 +50,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     gallery: true
                 }
             };
+
             KfxWebSDK.Capture.setOptions(captureOptions, function() {
                 console.info('Capture options set successfully.');
                 document.getElementById('error_message').innerHTML = 'Capture options set successfully';

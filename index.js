@@ -1,4 +1,37 @@
 
+var captureOptions = {
+    useTargetFrameCrop: false,
+    frameAspectRatio: 0.628,
+    framePadding: 5,
+    frameCornerHeight: 15,
+    frameCornerWidth: 70,
+    frameCornerColor: '#277EB7',
+    resolution: KfxWebSDK.resolution.RES_FULL_HD,
+    downscaleSize: 2,
+    outOfFrameTransparency: 0.5,
+    showEdges: false,
+    edgesColor: '#FFFF00',
+    edgesWidth: 4,
+    enableFlashCapture: false,
+    guidanceSize: 150,
+    criteria: {
+        captureTimeout: 1700,
+        centerToleranceFraction: 0.15,
+        longAxisThreshold: 85,
+        shortAxisThreshold: 60,
+        maxFillFraction: 1.8,
+        minFillFraction: 0.65,
+        turnSkewAngleTolerance: 10,
+        pitchThreshold: 15,
+        rollThreshold: 15
+    },
+    lookAndFeel: {
+        showTapToDismissMessage: true,
+        forceCapture: 10,
+        gallery: true
+    }
+};
+
 
 document.addEventListener("DOMContentLoaded", function () {
 
@@ -18,55 +51,21 @@ document.addEventListener("DOMContentLoaded", function () {
             console.info('Capture control created successfully:', createSuccess);
             document.getElementById('error_message').innerHTML = 'Capture control created successfully';
 
-            // Set additional capture options if needed
-            var captureOptions = {
-                useTargetFrameCrop: false,
-                frameAspectRatio: 0.628,
-                framePadding: 5,
-                frameCornerHeight: 15,
-                frameCornerWidth: 70,
-                frameCornerColor: '#277EB7',
-                resolution: KfxWebSDK.resolution.RES_FULL_HD,
-                downscaleSize: 2,
-                outOfFrameTransparency: 0.5,
-                showEdges: false,
-                edgesColor: '#FFFF00',
-                edgesWidth: 4,
-                enableFlashCapture: false,
-                guidanceSize: 150,
-                criteria: {
-                    captureTimeout: 1700,
-                    centerToleranceFraction: 0.15,
-                    longAxisThreshold: 85,
-                    shortAxisThreshold: 60,
-                    maxFillFraction: 1.8,
-                    minFillFraction: 0.65,
-                    turnSkewAngleTolerance: 10,
-                    pitchThreshold: 15,
-                    rollThreshold: 15
-                },
-                lookAndFeel: {
-                    showTapToDismissMessage: true,
-                    forceCapture: 10,
-                    gallery: true
-                }
-            };
             
-            KfxWebSDK.Capture.setOptions(captureOptions, function() {
+            // KfxWebSDK.Capture.setOptions(captureOptions, function() {
 
-                console.info('Capture options set successfully.', captureOptions);
-                document.getElementById('error_message').innerHTML = 'Capture options set successfully';
+            //     console.info('Capture options set successfully.', captureOptions);
+            //     document.getElementById('error_message').innerHTML = 'Capture options set successfully';
                 
+            // }, function(error) {
 
-            }, function(error) {
+            //     console.error('Error setting capture options:', error);
+            //     document.getElementById('error_message').innerHTML = 'Error setting capture options: ' + error.message;
 
-                console.error('Error setting capture options:', error);
-                document.getElementById('error_message').innerHTML = 'Error setting capture options: ' + error.message;
-
-                if (error.code == 0) {
-                    KfxWebSDK.destroy();
-                }
-            });
+            //     if (error.code == 0) {
+            //         KfxWebSDK.destroy();
+            //     }
+            // });
             
         }, function(error) {
             console.error('Error creating capture control:', error);
@@ -87,10 +86,12 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
+
 // Capture image on button click
 function SelectChange() {
     setTimeout(DisplayCameraUI, 1000)
 };
+
 
 function DisplayCameraUI() {
 

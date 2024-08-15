@@ -64,11 +64,13 @@ html, body {
 
 .review_container {
     position: absolute;
-    border-radius: 15px;
-    background-color: rgb(255, 255, 255);
+    border-radius: 20px;
+    padding: 50px;
+    background-color: black;
+    color: white;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     width: 70%;
-    height: 90%;
+    height: 80%;
 }
 
 .custom-select {
@@ -98,13 +100,6 @@ html, body {
     outline: 1px solid #ccc;
     background-color: rgb(245, 245, 245);
     border: none;
-}
-
-.custom-select::after {
-    content: '\2BC6';
-    position: absolute;
-    top: 5px;
-    right: 12px;
 }
 
 .select-items div,.select-selected {

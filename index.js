@@ -50,6 +50,7 @@ function DisplayCameraUI() {
     }
 
     // Get default options
+    document.getElementById('cameraContainer').style.display = 'block';
     KfxWebSDK.Capture.getDefaultOptions(function(defaultOptions) {
         console.info('Default options retrieved successfully:', defaultOptions);
         document.getElementById('error_message').innerHTML = 'Default options retrieved successfully';
@@ -135,6 +136,8 @@ function DisplayCameraUI() {
             if (error.code == 0) {
                 KfxWebSDK.Capture.destroy();
             }
+
+            document.getElementById('cameraContainer').style.display = 'display';
         });
 
     }, function(error) {
@@ -150,7 +153,6 @@ function DisplayCameraUI() {
 
 function takePic() {
     // Take Picture
-    document.getElementById('cameraContainer').style.display = 'block';
     KfxWebSDK.Capture.takePicture(function(imageData) {
         console.info('Image captured successfully:', imageData);
         document.getElementById('error_message').innerHTML = 'Image captured successfully';

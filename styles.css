@@ -5,6 +5,10 @@ html, body {
     overflow: hidden;
 }
 
+#error_message {
+    width: 50%;
+}
+
 #cameraContainer {
     border-radius: 30px;
     width: 70%;
@@ -22,7 +26,7 @@ html, body {
     background-color: #277EB7;
     border: none;
     cursor: pointer;
-    width: 30%;
+    width: 150px;
     padding: 10px;
     box-sizing: border-box;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -49,10 +53,6 @@ html, body {
     justify-content: center; 
     gap: 30px; 
     height: 10%;
-}
-
-#test {
-    width: 50%;
 }
 
 h1 {

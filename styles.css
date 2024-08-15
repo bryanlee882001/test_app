@@ -1,12 +1,14 @@
 html, body {
     height: 100%;
-    margin: 0;
-    padding: 0;
     overflow: hidden;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
 #error_message {
+    margin-top: 15px;
     width: 50%;
+    font-size: 13px;
+    font-style: italic;
     color: black;
 }
 
@@ -56,7 +58,66 @@ html, body {
     gap: 30px; 
 }
 
+.text_container {
+    margin-bottom: 10px;
+}
+
+.review_container {
+    position: absolute;
+    border-radius: 15px;
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    width: 70%;
+    height: 90%;
+}
+
+.custom-select {
+    position: relative;
+    display: inline-block;
+    width: 200px;
+    height: 50px;
+}
+
+.custom-select select {
+    display: inline-block;
+    width: 100%;
+    padding: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.custom-select select:hover, .custom-select select:focus{
+    outline: 1px solid #ccc;
+    background-color: rgb(245, 245, 245);
+    border: none;
+}
+
+.custom-select::after {
+    content: '\2BC6';
+    position: absolute;
+    top: 5px;
+    right: 12px;
+}
+
+.select-items div,.select-selected {
+    color: #ffffff;
+    padding: 8px 16px;
+    border: 1px solid transparent;
+    border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
+    cursor: pointer;
+    user-select: none;
+}
+
 h1 {
-    font-size: 25px;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 30px;
+    font-weight: 900;
+    margin-bottom: -10px;
 }

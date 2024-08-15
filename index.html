@@ -11,13 +11,24 @@
 </head>
 <body>
     <div class="app_container">
-        <h1>Kofax Demo App</h1>
+        <div class="text_container">
+            <h1>Kofax Demo App</h1>
+            <p>Select a Document Type to Scan</p>
+        </div>
         <div id="button_container">
-            <button id="captureButton">Start Camera</button>
+            <div class="custom-select">
+                <select onchange="SelectChange()">
+                  <option value="0" disabled selected="selected">Select Document</option>
+                  <option value="1">Identification Card</option>
+                  <option value="2">Passport</option>
+                  <option value="3">Bills</option>
+                </select>
+              </div>
+            <!-- <button id="captureButton">Start Camera</button> -->
         </div>
         <div id="error_message"></div>
-        <div id="cameraContainer"></div>
-        <!-- <img id="download" alt="Captured Image" /> -->
+        <div id="cameraContainer" style="display: none;"></div>
+        <div id="review_container" class="review_container" style="display: none;"></div>
     </div>
 </body>
 </html>

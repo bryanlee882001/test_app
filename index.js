@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Initialize the capture control with default options
         KfxWebSDK.Capture.create(defaultOptions, function(createSuccess) {
-            console.info('Capture control created successfully.');
+            console.info('Capture control created successfully:', createSuccess);
             document.getElementById('error_message').innerHTML = 'Capture control created successfully';
 
             // Set additional capture options if needed
@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 framePadding: 5,
                 frameCornerHeight: 15,
                 frameCornerWidth: 70,
-                frameCornerColor: '#00FF00',
+                frameCornerColor: '#277EB7',
                 resolution: KfxWebSDK.resolution.RES_FULL_HD,
                 downscaleSize: 2,
                 outOfFrameTransparency: 0.5,
@@ -46,7 +46,6 @@ document.addEventListener("DOMContentLoaded", function () {
                     rollThreshold: 15
                 },
                 lookAndFeel: {
-                    // documentSample: 'http://example.com/images/document_sample.jpg',
                     showTapToDismissMessage: true,
                     forceCapture: 10,
                     gallery: true
@@ -54,33 +53,70 @@ document.addEventListener("DOMContentLoaded", function () {
             };
             
             KfxWebSDK.Capture.setOptions(captureOptions, function() {
-                console.info('Capture options set successfully.');
+
+                console.info('Capture options set successfully.', captureOptions);
                 document.getElementById('error_message').innerHTML = 'Capture options set successfully';
+                
+
             }, function(error) {
+
                 console.error('Error setting capture options:', error);
                 document.getElementById('error_message').innerHTML = 'Error setting capture options: ' + error.message;
+
+                if (error.code == 0) {
+                    KfxWebSDK.destroy();
+                }
             });
             
         }, function(error) {
             console.error('Error creating capture control:', error);
             document.getElementById('error_message').innerHTML = 'Error creating capture control: ' + error.message;
+
+            if (error.code == 0) {
+                KfxWebSDK.destroy();
+            }
         });
 
     }, function(error) {
         console.error('Error retrieving default options:', error);
         document.getElementById('error_message').innerHTML = 'Error retrieving default options: ' + error.message;
-    });
-
-    // Capture image on button click
-    document.getElementById('captureButton').addEventListener('click', function() {
-
-        KfxWebSDK.Capture.takePicture(function(imageData) {
-            console.info('Image captured successfully:', imageData);
-            document.getElementById('error_message').innerHTML = 'Image captured successfully';
-
-        }, function(error) {
-            console.error('Error capturing image:', error);
-            document.getElementById('error_message').innerHTML= 'Error capturing image: ' + error.message;
-        });
+        
+        if (error.code == 0) {
+            KfxWebSDK.destroy();
+        }
     });
 });
+
+// Capture image on button click
+function SelectChange() {
+    setTimeout(DisplayCameraUI, 1000)
+};
+
+function DisplayCameraUI() {
+
+    document.getElementById('cameraContainer').style.display = 'block';
+
+    KfxWebSDK.Capture.takePicture(function(imageData) {
+        console.info('Image captured successfully:', imageData);
+        
+        document.getElementById('review_container').style.display = 'block';
+        var reviewControl = new KfxWebSDK.ReviewControl('review_container');
+        reviewControl.review(imageData, function() {
+
+            console.log("I want it");
+        }, function() {
+
+            console.log("I want to retake");
+
+            // // retakeCallback
+            // KfxWebSDK.destroy();
+        })
+
+    }, function(error) {
+        console.error('Error capturing image:', error);
+
+        if (error.code == 0) {
+            KfxWebSDK.destroy();
+        }
+    });
+}

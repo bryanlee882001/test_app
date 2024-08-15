@@ -34,55 +34,8 @@ var captureOptions = {
 };
 
 
-// Display Camera UI on change in selection
-function DisplayCameraUI() {
-
-    // User has to select a document type
-    const select = document.getElementById('document_select');
-    if (select.value == 0) {
-        document.getElementById('error_message').innerHTML = 'Error: Select a Document Type';
-
-        return;
-    }
-
-    setTimeout(takePic, 1000);
-}
-
-
-function takePic() {
-    // Take Picture
-    KfxWebSDK.Capture.takePicture(function(imageData) {
-        console.info('Image captured successfully:', imageData);
-        document.getElementById('error_message').innerHTML = 'Image captured successfully';
-        
-        // Review Picture
-        document.getElementById('review_container').style.display = 'block';
-        var reviewControl = new KfxWebSDK.ReviewControl('review_container');
-        reviewControl.review(imageData, function() {
-            
-            console.log("I want it");
-        }, function() {
-    
-            console.log("I want to retake");
-    
-        })
-
-    }, function(error) {
-        console.error('Error capturing image:', error);
-        document.getElementById('error_message').innerHTML = 'Error capturing image: ' + error.message;
-
-        if (error.code == 0) {
-            console.info('Kofax Web destoyed');
-            KfxWebSDK.destroy();
-        }
-
-        document.getElementById('cameraContainer').style.display = 'none';
-    });
-}
-
-
-
 document.addEventListener("DOMContentLoaded", function () {
+    
     // Get default options
     KfxWebSDK.Capture.getDefaultOptions(function(defaultOptions) {
         console.info('Default options retrieved successfully:', defaultOptions);
@@ -152,4 +105,49 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById('error_message').innerHTML = 'Error retrieving default options:' + error.message;
 
     });
+
+    document.getElementById('document_select').addEventListener("change", function() {
+        
+        // User has to select a document type
+        const select = document.getElementById('document_select');
+        if (select.value == 0) {
+            document.getElementById('error_message').innerHTML = 'Error: Select a Document Type';
+
+            return;
+        }
+
+        setTimeout(takePic, 1000);
+    });
 });
+
+
+function takePic() {
+    // Take Picture
+    KfxWebSDK.Capture.takePicture(function(imageData) {
+        console.info('Image captured successfully:', imageData);
+        document.getElementById('error_message').innerHTML = 'Image captured successfully';
+        
+        // Review Picture
+        document.getElementById('review_container').style.display = 'block';
+        var reviewControl = new KfxWebSDK.ReviewControl('review_container');
+        reviewControl.review(imageData, function() {
+            
+            console.log("I want it");
+        }, function() {
+    
+            console.log("I want to retake");
+    
+        })
+
+    }, function(error) {
+        console.error('Error capturing image:', error);
+        document.getElementById('error_message').innerHTML = 'Error capturing image: ' + error.message;
+
+        if (error.code == 0) {
+            console.info('Kofax Web destoyed');
+            KfxWebSDK.destroy();
+        }
+
+        document.getElementById('cameraContainer').style.display = 'none';
+    });
+}

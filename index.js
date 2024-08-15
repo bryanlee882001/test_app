@@ -1,6 +1,5 @@
-
 document.addEventListener("DOMContentLoaded", function () {
-
+    
     // Get default options
     KfxWebSDK.Capture.getDefaultOptions(function(defaultOptions) {
         console.info('Default options retrieved successfully:', defaultOptions);
@@ -10,10 +9,11 @@ document.addEventListener("DOMContentLoaded", function () {
         defaultOptions.preference = "camera";
         defaultOptions.useVideoStream = true;
         defaultOptions.preview = true;
-        
+
         // Initialize the capture control with default options
         KfxWebSDK.Capture.create(defaultOptions, function(createSuccess) {
             console.info('Capture control created successfully.');
+
             // Set additional capture options if needed
             var captureOptions = {
                 useTargetFrameCrop: false,
@@ -48,7 +48,6 @@ document.addEventListener("DOMContentLoaded", function () {
                     gallery: true
                 }
             };
-
             KfxWebSDK.Capture.setOptions(captureOptions, function() {
                 console.info('Capture options set successfully.');
             }, function(error) {
@@ -60,55 +59,15 @@ document.addEventListener("DOMContentLoaded", function () {
     }, function(error) {
         console.error('Error retrieving default options:', error);
     });
-    
     // Capture image on button click
     document.getElementById('captureButton').addEventListener('click', function() {
-
         KfxWebSDK.Capture.takePicture(function(imageData) {
             console.info('Image captured successfully:', imageData);
-
-            // Show the download button
-            var downloadButton = document.getElementById('downloadButton');
-            downloadButton.style.display = 'block';
-
-            // Set up the download link
-            downloadButton.addEventListener('click', function() {
-                var link = document.createElement('a');
-                link.href = 'data:image/jpeg;base64,' + convertImageDataToBase64(imageData);
-                link.download = 'captured_image.jpg';
-                link.click();
-            });
-
+            // Display the captured image
+            var capturedImageElement = document.getElementById('capturedImage');
+            capturedImageElement.src = 'data:image/jpeg;base64,' + imageData;
         }, function(error) {
             console.error('Error capturing image:', error);
-
-            // Show the download button
-            var downloadButton = document.getElementById('downloadButton');
-            downloadButton.style.display = 'block';
-
-            // Set up the download link
-            downloadButton.addEventListener('click', function() {
-                var link = document.createElement('a');
-                link.href = 'data:image/jpeg;base64,' + convertImageDataToBase64(imageData);
-                link.download = 'captured_image.jpg';
-                link.click();
-            });
         });
     });
 });
-
-
-
-function convertImageDataToBase64(imageData) {
-    var canvas = document.createElement("canvas");
-    canvas.width = imageData.width;
-    canvas.height = imageData.height;
-    var context = canvas.getContext("2d");
-    context.putImageData(imageData, 0, 0);
-    var dataUrl = canvas.toDataURL("image/jpeg");
-    var base64 = dataUrl.replace(/^data:image\/(jpeg|png|jpg);base64,/, "");
-    context = null;
-    canvas = null;
-    dataUrl = null;
-    return base64;
-}

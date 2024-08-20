@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./KfxWebSDK/KfxWebSDK/CSS/KfxWebSDK.css">
     <script type="text/javascript" src="./KfxWebSDK/KfxWebSDK/KfxWebSDK.js"></script>
-    <script type="text/javascript" src="index.js"></script>
+    <!-- <script type="text/javascript" src="script.js"></script> -->
     <title>Document</title>
 </head>
 
@@ -14,9 +14,8 @@
     <div id="cameraContainer"></div>
     <button id="captureButton">Capture Image</button>
 
-
     <script>
-        var cameraOptions = { containerId : "", 
+        var cameraOptions = { containerId : "cameraContainer", 
             preference : "camera", 
             useVideoStream : true,
             preview : true,

@@ -16,7 +16,7 @@
             <p>Select a Document Type to Scan</p>
         </div>
         <div id="button_container">
-            <div class="custom-select">
+            <!-- <div class="custom-select">
                 <select id="document_select">
                   <option value="0" disabled selected="selected">Select Document</option>
                   <option value="1">Check</option>
@@ -25,8 +25,8 @@
                   <option value="4">Credit Card</option>
                   <option value="5">Pay Bill</option>
                 </select>
-              </div>
-            <!-- <button id="captureButton">Start Camera</button> -->
+              </div> -->
+            <button id="captureButton">Start Camera</button>
         </div>
         <div id="error_message"></div>
         <div id="cameraContainer" style="display: none;"></div>
@@ -98,7 +98,7 @@
             });
 
             // Capture image on button click
-            document.getElementById('document_select').addEventListener('change', function() {
+            document.getElementById('captureButton').addEventListener('click', function() {
                 KfxWebSDK.Capture.takePicture(function(imageData) {
                     console.info('Image captured successfully:', imageData);
                     // Display the captured image
@@ -111,7 +111,7 @@
         });
 
 
-
+        
         // document.addEventListener("DOMContentLoaded", function () {
         //     // Get default options
         //     KfxWebSDK.Capture.getDefaultOptions(function(defaultOptions) {

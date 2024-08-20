@@ -63,12 +63,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 cameraOptions.preference = 'camera';
                 cameraOptions.useVideoStream = true;
                 cameraOptions.preview = true;
-
-                const defaultMobileIdAspectRatio = 0.629;
-                const defaultPaddingPercent = 14;
-
-                cameraOptions.frameAspectRatio = defaultMobileIdAspectRatio;
-                cameraOptions.framePaddng = defaultPaddingPercent;
+                cameraOptions.frameAspectRatio = 0.700;
+                cameraOptions.framePaddng = 14;
 
                 performStandardCapture(cameraOptions, function (imageData) {
                     console.log("Image captured:", imageData);
@@ -82,33 +78,5 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         )
 
-        // performStandardCapture(cameraOptions, function (imageData) {
-        //     console.log("Image captured:", imageData);
-        // }, function (error) {
-        //     console.error("Error capturing image:", error);
-        // });
-
     });
-
-    // document.getElementById("advancedCaptureBtn").addEventListener("click", function () {
-    //     var cameraOptions = {}; // Define your camera options here
-    //     var captureOptions = {}; // Define your capture options here
-    //     performAdvancedCapture(cameraOptions, captureOptions, function (imageData, flashCaptureData) {
-    //         console.log("Image captured:", imageData, flashCaptureData);
-    //     }, function (error) {
-    //         console.error("Error capturing image:", error);
-    //     });
-    // });
-
-    // document.getElementById("stopCaptureBtn").addEventListener("click", function () {
-    //     stopCapture(function (success) {
-    //         console.log("Capture stopped:", success);
-    //     }, function (error) {
-    //         console.error("Error stopping capture:", error);
-    //     });
-    // });
-
-    // document.getElementById("destroyBtn").addEventListener("click", function () {
-    //     destroy();
-    // });
 });

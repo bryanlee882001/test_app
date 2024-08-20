@@ -13,7 +13,8 @@ var performStandardCapture = function (
             cameraOptions.useVideoStream = true;
             cameraOptions.preview = true;
 
-            KfxWebSDK.Capture.create(
+            setTimeout( function() {
+                KfxWebSDK.Capture.create(
                 cameraOptions,
                 function (createSuccess) {
                     document.getElementById('cameraContainer').style.display = 'block';
@@ -37,6 +38,7 @@ var performStandardCapture = function (
                     );
                 }
             );
+        }, 2000);
 
     }, function(error) {
         console.error('Error retrieving default options:', error);

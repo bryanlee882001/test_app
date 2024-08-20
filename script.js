@@ -70,7 +70,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     // Capture image on button click
-    document.getElementById('document_select').addEventListener('change', function() {
+    document.getElementById('captureButton').addEventListener('click', function() {
         document.getElementById('cameraContainer').style.display = 'block';
 
         KfxWebSDK.Capture.takePicture(function(imageData) {

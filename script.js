@@ -49,18 +49,39 @@ var checkForAutoCaptureSupport = function (successCallback, errorCallback) {
 document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("standardCaptureBtn").addEventListener("click", function () {
 
-        var cameraOptions = { 
-            containerId : "cameraContainer", 
-            preference : "camera", 
-            useVideoStream : true,
-            preview : true,
-        }; 
+        // var cameraOptions = { 
+        //     containerId : "cameraContainer", 
+        //     preference : "camera", 
+        //     useVideoStream : true,
+        //     preview : true,
+        // };
+        
+        KfxWebSDK.Capture.getDefaultOptions(
+            function (cameraOptions) {
 
-        performStandardCapture(cameraOptions, function (imageData) {
-            console.log("Image captured:", imageData);
-        }, function (error) {
-            console.error("Error capturing image:", error);
-        });
+                cameraOptions.containerId = 'cameraContainer';
+                cameraOptions.preference = 'camera';
+                cameraOptions.useVideoStream = true;
+                cameraOptions.preview = true;
+
+                performStandardCapture(cameraOptions, function (imageData) {
+                    console.log("Image captured:", imageData);
+                }, function (error) {
+                    console.error("Error capturing image:", error);
+                });
+            },
+            function (getOptionsError) {
+                document.getElementById('debug_message').innerHTML = 'Error while getting default options: ' + getOptionsError.message;
+                console.error("Error while creating capture:", getOptionsError);
+            }
+        )
+
+        // performStandardCapture(cameraOptions, function (imageData) {
+        //     console.log("Image captured:", imageData);
+        // }, function (error) {
+        //     console.error("Error capturing image:", error);
+        // });
+
     });
 
     // document.getElementById("advancedCaptureBtn").addEventListener("click", function () {

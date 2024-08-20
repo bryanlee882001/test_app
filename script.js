@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Get default options
     KfxWebSDK.Capture.getDefaultOptions(function(defaultOptions) {
         console.info('Default options retrieved successfully:', defaultOptions);
+        document.getElementById('debug_message').innerHTML = 'Default options retrieved successfully';
 
         // Modify default options if needed
         defaultOptions.containerId = "cameraContainer";
@@ -14,6 +15,7 @@ document.addEventListener("DOMContentLoaded", function () {
         // Initialize the capture control with default options
         KfxWebSDK.Capture.create(defaultOptions, function(createSuccess) {
             console.info('Capture control created successfully.');
+            document.getElementById('debug_message').innerHTML = 'Capture control created successfully';
 
             // Set additional capture options if needed
             var captureOptions = {
@@ -54,14 +56,17 @@ document.addEventListener("DOMContentLoaded", function () {
                 console.info('Capture options set successfully.');
             }, function(error) {
                 console.error('Error setting capture options:', error);
+                document.getElementById('debug_message').innerHTML = 'Error setting capture options: ' + error.message;
             });
 
         }, function(error) {
             console.error('Error creating capture control:', error);
+            document.getElementById('debug_message').innerHTML = 'Error creating capture control: ' + error.message;
         });
 
     }, function(error) {
         console.error('Error retrieving default options:', error);
+        document.getElementById('debug_message').innerHTML = 'Error retrieving default options: ' + error.message;
     });
 
     // Capture image on button click
@@ -70,9 +75,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
         KfxWebSDK.Capture.takePicture(function(imageData) {
             console.info('Image captured successfully:', imageData);
+            document.getElementById('debug_message').innerHTML = 'Image captured successfully';
 
         }, function(error) {
             console.error('Error capturing image:', error);
+            document.getElementById('debug_message').innerHTML = 'Error capturing image: ' + error.message;
         });
     });
 });

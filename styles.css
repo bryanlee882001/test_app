@@ -4,7 +4,7 @@ html, body {
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
-#error_message {
+#debug_message {
     margin-top: 15px;
     width: 50%;
     font-size: 13px;

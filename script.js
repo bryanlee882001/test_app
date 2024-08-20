@@ -31,5 +31,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }, function (error) {
             console.error("Error capturing image:", error);
         });
+        
     });
 });

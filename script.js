@@ -64,6 +64,12 @@ document.addEventListener("DOMContentLoaded", function () {
                 cameraOptions.useVideoStream = true;
                 cameraOptions.preview = true;
 
+                const defaultMobileIdAspectRatio = 0.629;
+                const defaultPaddingPercent = 14;
+
+                cameraOptions.frameAspectRatio = defaultMobileIdAspectRatio;
+                cameraOptions.framePaddng = defaultPaddingPercent;
+
                 performStandardCapture(cameraOptions, function (imageData) {
                     console.log("Image captured:", imageData);
                 }, function (error) {

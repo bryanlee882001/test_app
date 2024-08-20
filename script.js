@@ -7,121 +7,22 @@ var performStandardCapture = function (
     KfxWebSDK.Capture.create(
         cameraOptions,
         function (createSuccess) {
+            document.getElementById('debug_message').innerHTML = 'Successfully Created Capture';
             KfxWebSDK.Capture.takePicture(
                 function (imageData) {
                     sendCallback(successCallback, imageData);
                 },
                 function (takePictureError) {
-                    console.log(
-                        "Error while take picture is " +
-                            takePictureError.message
-                    );
+                    console.error("Error while taking picture:", takePictureError);
                     sendCallback(errorCallback, takePictureError.message);
                 }
             );
         },
         function (createError) {
             alert("Camera is unavailable");
-            console.log(
-                "Error while creating capture is " + createError.message
-            );
+            document.getElementById('debug_message').innerHTML = 'Error while creating capture: ' + createError.message;
+            console.error("Error while creating capture:", createError);
             sendCallback(errorCallback, createError.message);
-        }
-    );
-};
-
-var performAdvancedCapture = function (
-    cameraOptions,
-    captureOptions,
-    successCallback,
-    errorCallback
-) {
-    //Set the boolean value to false when the camera is launched successfully
-    cameraDisabled = false;
-    KfxWebSDK.Capture.destroy(
-        function () {
-            KfxWebSDK.Capture.create(
-                cameraOptions,
-                function (createSuccess) {
-                    KfxWebSDK.Capture.setOptions(
-                        captureOptions,
-                        function (setOptionsSuccess) {
-                            KfxWebSDK.Capture.takePicture(
-                                function (imageData, flashCaptureData) {
-                                    successCallback(
-                                        imageData,
-                                        flashCaptureData
-                                    );
-                                },
-                                function (takePictureError) {
-                                    console.log(
-                                        "Error while take picture is " +
-                                            takePictureError.message
-                                    );
-                                    sendCallback(
-                                        errorCallback,
-                                        takePictureError.message
-                                    );
-                                }
-                            );
-                        },
-                        function (setOptionsError) {
-                            console.log(
-                                "Error while setting options is " +
-                                    setOptionsError.message
-                            );
-                            sendCallback(
-                                errorCallback,
-                                setOptionsError.message
-                            );
-                        }
-                    );
-                },
-                function (createError) {
-                    //When camera is not created due to secuity reasons this error code is returned
-                    if (createError.code == KfxWebSDK.ERROR_CODE_MEDIA) {
-                        //Set the boolean value to true as camera is disabled
-                        cameraDisabled = true;
-                    }
-                    console.log(
-                        "Error while creating capture is " +
-                            createError.message
-                    );
-                    sendCallback(errorCallback, createError.message);
-                }
-            );
-        },
-        function (forceDestroyError) {
-            console.log(
-                "Error while force destroying resources is " +
-                    forceDestroyError.message
-            );
-            sendCallback(errorCallback, forceDestroyError.message);
-        }
-    );
-};
-
-var stopCapture = function (successCallback, errorCallback) {
-    KfxWebSDK.Capture.stopCapture(
-        function (stopCaptureSuccess) {
-            sendCallback(successCallback, stopCaptureSuccess);
-        },
-        function (stopCaptureError) {
-            console.log(
-                "Error while stop capture is " + stopCaptureError.message
-            );
-            sendCallback(errorCallback, stopCaptureError);
-        }
-    );
-};
-
-var destroy = function () {
-    KfxWebSDK.Capture.destroy(
-        function () {},
-        function (destroyError) {
-            console.log(
-                "Error while destroy capture is " + destroyError.message
-            );
         }
     );
 };

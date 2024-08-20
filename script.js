@@ -147,7 +147,14 @@ var checkForAutoCaptureSupport = function (successCallback, errorCallback) {
 // Event listeners for buttons
 document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("standardCaptureBtn").addEventListener("click", function () {
-        var cameraOptions = {}; // Define your camera options here
+
+        var cameraOptions = { 
+            containerId : "cameraContainer", 
+            preference : "camera", 
+            useVideoStream : true,
+            preview : true,
+        }; 
+
         performStandardCapture(cameraOptions, function (imageData) {
             console.log("Image captured:", imageData);
         }, function (error) {
@@ -155,25 +162,25 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-    document.getElementById("advancedCaptureBtn").addEventListener("click", function () {
-        var cameraOptions = {}; // Define your camera options here
-        var captureOptions = {}; // Define your capture options here
-        performAdvancedCapture(cameraOptions, captureOptions, function (imageData, flashCaptureData) {
-            console.log("Image captured:", imageData, flashCaptureData);
-        }, function (error) {
-            console.error("Error capturing image:", error);
-        });
-    });
+    // document.getElementById("advancedCaptureBtn").addEventListener("click", function () {
+    //     var cameraOptions = {}; // Define your camera options here
+    //     var captureOptions = {}; // Define your capture options here
+    //     performAdvancedCapture(cameraOptions, captureOptions, function (imageData, flashCaptureData) {
+    //         console.log("Image captured:", imageData, flashCaptureData);
+    //     }, function (error) {
+    //         console.error("Error capturing image:", error);
+    //     });
+    // });
 
-    document.getElementById("stopCaptureBtn").addEventListener("click", function () {
-        stopCapture(function (success) {
-            console.log("Capture stopped:", success);
-        }, function (error) {
-            console.error("Error stopping capture:", error);
-        });
-    });
+    // document.getElementById("stopCaptureBtn").addEventListener("click", function () {
+    //     stopCapture(function (success) {
+    //         console.log("Capture stopped:", success);
+    //     }, function (error) {
+    //         console.error("Error stopping capture:", error);
+    //     });
+    // });
 
-    document.getElementById("destroyBtn").addEventListener("click", function () {
-        destroy();
-    });
+    // document.getElementById("destroyBtn").addEventListener("click", function () {
+    //     destroy();
+    // });
 });

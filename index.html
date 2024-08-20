@@ -1,87 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./KfxWebSDK/KfxWebSDK/CSS/KfxWebSDK.css">
-    <script type="text/javascript" src="./KfxWebSDK/KfxWebSDK/KfxWebSDK.js"></script>
-    <!-- <script type="text/javascript" src="script.js"></script> -->
-    <title>Document</title>
-</head>
-
-<body>
-    <h1>Kofax WebSDK Capture Example</h1>
-    <div id="cameraContainer"></div>
-    <button id="captureButton">Capture Image</button>
-
-    <script>
-        var cameraOptions = { containerId : "cameraContainer", 
-            preference : "camera", 
-            useVideoStream : true,
-            preview : true,
-        }; 
-
-        var captureOptions = {
-            useTargetFrameCrop: false,
-            frameAspectRatio: 0.628,
-            framePadding: 5,
-            frameCornerHeight: 15,
-            frameCornerWidth: 70,
-            frameCornerColor: '#00FF00',
-            resolution: KfxWebSDK.resolution.RES_FULL_HD,
-            downscaleSize: 2,
-            outOfFrameTransparency: 0.5,
-            showEdges: false,
-            edgesColor: '#FFFF00',
-            edgesWidth: 4,
-            enableFlashCapture: false,
-            guidanceSize: 150,
-            criteria: {
-                captureTimeout: 1700,
-                centerToleranceFraction: 0.15,
-                longAxisThreshold: 85,
-                shortAxisThreshold: 60,
-                maxFillFraction: 1.8,
-                minFillFraction: 0.65,
-                turnSkewAngleTolerance: 10,
-                pitchThreshold: 15,
-                rollThreshold: 15
-            },
-            lookAndFeel: {
-                // documentSample: 'http://example.com/images/document_sample.jpg',
-                showTapToDismissMessage: true,
-                forceCapture: 10,
-                gallery: true
-            }
-        }
-
-        document.addEventListener("DOMContentLoaded", function () {
-            // Initialize the capture control when the page loads
-            KfxWebSDK.Capture.create(cameraOptions, function(createSuccess) {
-                console.info('Capture control created successfully.');
-
-                // Set capture options
-                KfxWebSDK.Capture.setOptions(captureOptions, function() {
-                    console.log('Capture options set successfully.');
-                }, function(error) {
-                    console.error('Error setting capture options:', error);
-                });
-
-            }, function(error) {
-                console.error('Error creating capture control:', error);
-            });
-
-            // Capture image on button click
-            document.getElementById('captureButton').addEventListener('click', function() {
-                KfxWebSDK.Capture.takePicture(function(imageData) {
-                    console.log('Image captured successfully:', imageData);
-                    // Do something with the captured image data
-                }, function(error) {
-                    console.error('Error capturing image:', error);
-                });
-            });
-        });
-
-    </script>
-</body>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="./KfxWebSDK/KfxWebSDK/CSS/KfxWebSDK.css">
+        <script type="text/javascript" src="./KfxWebSDK/KfxWebSDK/KfxWebSDK.js"></script>
+        <script type="text/javascript" src="script.js"></script>
+        <title>Document</title>
+    </head>
+    <body>
+        <h1>Kofax WebSDK Capture Example</h1>
+        <div id="cameraContainer"></div>
+        <button id="standardCaptureBtn">Capture Image</button>
+    </body>
 </html>

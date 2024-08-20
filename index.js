@@ -1,21 +1,16 @@
 document.addEventListener("DOMContentLoaded", function () {
-    
     // Get default options
     KfxWebSDK.Capture.getDefaultOptions(function(defaultOptions) {
         console.info('Default options retrieved successfully:', defaultOptions);
-        document.getElementById('error_message').innerHTML = 'Default options retrieved successfully';
-
         // Modify default options if needed
         defaultOptions.containerId = "cameraContainer";
         defaultOptions.preference = "camera";
         defaultOptions.useVideoStream = true;
         defaultOptions.preview = true;
-
+        
         // Initialize the capture control with default options
         KfxWebSDK.Capture.create(defaultOptions, function(createSuccess) {
             console.info('Capture control created successfully.');
-            document.getElementById('error_message').innerHTML = 'Capture control created successfully';
-
             // Set additional capture options if needed
             var captureOptions = {
                 useTargetFrameCrop: false,
@@ -50,69 +45,28 @@ document.addEventListener("DOMContentLoaded", function () {
                     gallery: true
                 }
             };
-
             KfxWebSDK.Capture.setOptions(captureOptions, function() {
                 console.info('Capture options set successfully.');
-                document.getElementById('error_message').innerHTML = 'Capture options set successfully';
-
             }, function(error) {
                 console.error('Error setting capture options:', error);
-                document.getElementById('error_message').innerHTML = 'Error setting capture options:' + error.message;
-
             });
         }, function(error) {
             console.error('Error creating capture control:', error);
-            document.getElementById('error_message').innerHTML = 'Error creating capture control:' + error.message;
-
         });
     }, function(error) {
         console.error('Error retrieving default options:', error);
-        document.getElementById('error_message').innerHTML = 'Error retrieving default options:' + error.message;
-
     });
 
-    document.getElementById('document_select').addEventListener("change", function() {
-        
-        // User has to select a document type
-        const select = document.getElementById('document_select');
-        if (select.value == 0) {
-            document.getElementById('error_message').innerHTML = 'Error: Select a Document Type';
 
-            return;
-        }
-
-        setTimeout(takePic, 1000);
+    // Capture image on button click
+    document.getElementById('captureButton').addEventListener('click', function() {
+        KfxWebSDK.Capture.takePicture(function(imageData) {
+            console.info('Image captured successfully:', imageData);
+            // Display the captured image
+            var capturedImageElement = document.getElementById('capturedImage');
+            capturedImageElement.src = 'data:image/jpeg;base64,' + imageData;
+        }, function(error) {
+            console.error('Error capturing image:', error);
+        });
     });
 });
-
-
-function takePic() {
-    // Take Picture
-    KfxWebSDK.Capture.takePicture(function(imageData) {
-        console.info('Image captured successfully:', imageData);
-        document.getElementById('error_message').innerHTML = 'Image captured successfully';
-        
-        // Review Picture
-        document.getElementById('review_container').style.display = 'block';
-        var reviewControl = new KfxWebSDK.ReviewControl('review_container');
-        reviewControl.review(imageData, function() {
-            
-            console.log("I want it");
-        }, function() {
-    
-            console.log("I want to retake");
-    
-        })
-
-    }, function(error) {
-        console.error('Error capturing image:', error);
-        document.getElementById('error_message').innerHTML = 'Error capturing image: ' + error.message;
-
-        if (error.code == 0) {
-            console.info('Kofax Web destoyed');
-            KfxWebSDK.destroy();
-        }
-
-        document.getElementById('cameraContainer').style.display = 'none';
-    });
-}

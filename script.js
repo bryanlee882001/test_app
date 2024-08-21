@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }, function(error) {
                 console.error('Error capturing image:', error);
             });
-        }, 500);
+        }, 5000);
     });
 
     // Select Button

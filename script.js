@@ -42,6 +42,16 @@ document.addEventListener("DOMContentLoaded", function () {
             document.getElementById('cameraContainer').style.display = 'none';
         });
     });
+
+    // Select Button
+    document.getElementById('document_select').addEventListener('change', function() {
+        
+        var selected_value = document.getElementById('document_select').value;
+        if (selected_value != 0) {
+            document.getElementById('captureButton').style.display = 'block';
+        }
+
+    });
 });
 
 // A function for users to review images
@@ -79,31 +89,44 @@ function ReviewImage(imageData) {
 // A function that restart Kofax Capture
 function RestartCapture() {
 
-    KfxWebSDK.Capture.stopCapture(
-        // Success Callback
+    KfxWebSDK.Capture.destroy(
         function() {
-            console.info('Stopped Capture, Restarting Capture');
-            
-            KfxWebSDK.Capture.takePicture(function(imageData) {
-                console.info('Image captured successfully:', imageData);
-    
-                // Review Image
-                ReviewImage(imageData);
-    
+            console.info('Destroyed Capture, Re-creating Capture');
+
+            document.getElementById('cameraContainer').style.display = 'none';
+            document.getElementById('review_container').style.display = 'none';
+
+            // Get default options
+            KfxWebSDK.Capture.getDefaultOptions(function(defaultOptions) {
+                console.info('Default options retrieved successfully:', defaultOptions);
+                
+                // Modify default options if needed
+                defaultOptions.containerId = "cameraContainer";
+                defaultOptions.preference = "camera";
+                defaultOptions.useVideoStream = true;
+                defaultOptions.preview = true;
+
+                // Initialize the capture control with default options
+                KfxWebSDK.Capture.create(defaultOptions, function(createSuccess) {
+                    console.info('Capture control created successfully.');
+
+                }, function(error) {
+                    console.error('Error creating capture control:', error);
+
+                });
+                
             }, function(error) {
-                console.error('Error capturing image:', error);
-    
-                document.getElementById('cameraContainer').style.display = 'none';
+                console.error('Error retrieving default options:', error);
+
             });
-        },
-        // Error Callback
-        function(error) {
-            console.error('Error Stopping Capture:', error);
+            
+        }, function(error) {
+            console.error('Error destroying image:', error);
 
+            document.getElementById('cameraContainer').style.display = 'none';
+            document.getElementById('review_container').style.display = 'none';
         }
-    )
-
-
+    );
 }
 
 // A function to convert image data to a downloadable format 

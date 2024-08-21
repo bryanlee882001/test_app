@@ -18,10 +18,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
         }, function(error) {
             console.error('Error creating capture control:', error);
+            alert('Error creating capture control:' + error.message);
+
         });
         
     }, function(error) {
         console.error('Error retrieving default options:', error);
+        alert('Error retrieving default options:' + error.message);
+
     });
 
     // Capture image on button click
@@ -36,6 +40,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
         }, function(error) {
             console.error('Error capturing image:', error);
+            alert('Error capturing image:' + error.message);
+
+            document.getElementById('cameraContainer').style.display = 'none';
         });
     });
 });
@@ -44,10 +51,10 @@ document.addEventListener("DOMContentLoaded", function () {
 function ReviewImage(imageData) {
 
     // Get Container Panel
-    var reviewControl = new KfxWebSDK.ReviewControl('review_container');
     document.getElementById('review_container').style.display = 'block';
 
     // Review Image
+    var reviewControl = new KfxWebSDK.ReviewControl('review_container')
     reviewControl.review(imageData, 
         // Accept Callback
         function() {
@@ -57,15 +64,50 @@ function ReviewImage(imageData) {
             var base64Image = convertImageDataToBase64(imageData);
             downloadImage(base64Image, 'captured_image.jpg');
 
-            // Close Panel
+            // Take another picture
             document.getElementById('review_container').style.display = 'none';
             RestartCapture();
             
         }, // Retake Callback
         function() {
             console.info('Retake Image', imageData);
+            
+            // Take another picture
+            document.getElementById('review_container').style.display = 'none';
+            RestartCapture();
         }
     )
+}
+
+// A function that restart Kofax Capture
+function RestartCapture() {
+
+    KfxWebSDK.Capture.stopCapture(
+        // Success Callback
+        function() {
+            console.info('Stopped Capture, Restarting Capture');
+            
+            KfxWebSDK.Capture.takePicture(function(imageData) {
+                console.info('Image captured successfully:', imageData);
+    
+                // Review Image
+                ReviewImage(imageData);
+    
+            }, function(error) {
+                console.error('Error capturing image:', error);
+                alert('Error capturing image:' + error.message);
+    
+                document.getElementById('cameraContainer').style.display = 'none';
+            });
+        },
+        // Error Callback
+        function(error) {
+            console.error('Error Stopping Capture:', error);
+            alert('Error Stopping Capture:' + error.message);
+        }
+    )
+
+
 }
 
 // A function to convert image data to a downloadable format 
@@ -94,12 +136,5 @@ function downloadImage(base64Image, filename) {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
-
-}
-
-// A function that restart Kofax Capture
-function RestartCapture() {
-
-
 
 }

@@ -18,13 +18,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
         }, function(error) {
             console.error('Error creating capture control:', error);
-            alert('Error creating capture control:' + error.message);
 
         });
         
     }, function(error) {
         console.error('Error retrieving default options:', error);
-        alert('Error retrieving default options:' + error.message);
 
     });
 
@@ -40,7 +38,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
         }, function(error) {
             console.error('Error capturing image:', error);
-            alert('Error capturing image:' + error.message);
 
             document.getElementById('cameraContainer').style.display = 'none';
         });
@@ -95,7 +92,6 @@ function RestartCapture() {
     
             }, function(error) {
                 console.error('Error capturing image:', error);
-                alert('Error capturing image:' + error.message);
     
                 document.getElementById('cameraContainer').style.display = 'none';
             });
@@ -103,7 +99,7 @@ function RestartCapture() {
         // Error Callback
         function(error) {
             console.error('Error Stopping Capture:', error);
-            alert('Error Stopping Capture:' + error.message);
+
         }
     )
 

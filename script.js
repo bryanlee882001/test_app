@@ -1,4 +1,5 @@
 
+// Event Listener
 document.addEventListener("DOMContentLoaded", function () {
 
     // Get default options
@@ -25,12 +26,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Capture image on button click
     document.getElementById('captureButton').addEventListener('click', function() {
+        document.getElementById('cameraContainer').style.display = 'block';
         
-        performStandardCapture(function (imageData) {
-            console.log("Image captured:", imageData);
-        }, function (error) {
-            console.error("Error capturing image:", error);
+        KfxWebSDK.Capture.takePicture(function(imageData) {
+            console.info('Image captured successfully:', imageData);
+
+        }, function(error) {
+            console.error('Error capturing image:', error);
         });
-        
     });
 });

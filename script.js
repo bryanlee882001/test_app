@@ -34,4 +34,14 @@ document.addEventListener("DOMContentLoaded", function () {
             console.error('Error capturing image:', error);
         });
     });
+
+        // Select Button
+        document.getElementById('document_select').addEventListener('change', function() {
+        
+            var selected_value = document.getElementById('document_select').value;
+            if (selected_value != 0) {
+                document.getElementById('captureButton').style.display = 'block';
+            }
+    
+        });
 });

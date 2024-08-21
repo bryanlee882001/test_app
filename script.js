@@ -1,4 +1,6 @@
 
+// Global Variable
+var globalOptions; 
 
 document.addEventListener("DOMContentLoaded", function () {
 
@@ -11,6 +13,8 @@ document.addEventListener("DOMContentLoaded", function () {
         defaultOptions.preference = "camera";
         defaultOptions.useVideoStream = true;
         defaultOptions.preview = true;
+
+        globalOptions = defaultOptions;
 
         // Initialize the capture control with default options
         KfxWebSDK.Capture.create(defaultOptions, function(createSuccess) {
@@ -44,14 +48,14 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     // Select Button
-    document.getElementById('document_select').addEventListener('change', function() {
+    // document.getElementById('document_select').addEventListener('change', function() {
         
-        var selected_value = document.getElementById('document_select').value;
-        if (selected_value != 0) {
-            document.getElementById('captureButton').style.display = 'block';
-        }
+    //     var selected_value = document.getElementById('document_select').value;
+    //     if (selected_value != 0) {
+    //         document.getElementById('captureButton').style.display = 'block';
+    //     }
 
-    });
+    // });
 });
 
 // A function for users to review images
@@ -146,14 +150,14 @@ function convertImageDataToBase64(imageData) {
 
 }
 
-// // A function to create a link for user to download the image
-// function downloadImage(base64Image, filename) {
+// A function to create a link for user to download the image
+function downloadImage(base64Image, filename) {
 
-//     var link = document.createElement('a');
-//     link.href = 'data:image/jpeg;base64,' + base64Image;
-//     link.download = filename;
-//     document.body.appendChild(link);
-//     link.click();
-//     document.body.removeChild(link);
+    var link = document.createElement('a');
+    link.href = 'data:image/jpeg;base64,' + base64Image;
+    link.download = filename;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
 
-// }
+}

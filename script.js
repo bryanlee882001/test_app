@@ -4,6 +4,8 @@ document.addEventListener("DOMContentLoaded", function () {
     // Capture image on button click
     document.getElementById('captureButton').addEventListener('click', function() {
 
+        document.getElementById('cameraContainer').style.display = 'block';
+
         // Get default options
         KfxWebSDK.Capture.getDefaultOptions(function(defaultOptions) {
             console.info('Default options retrieved successfully:', defaultOptions);
@@ -25,8 +27,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }, function(error) {
             console.error('Error retrieving default options:', error);
         });
-
-        document.getElementById('cameraContainer').style.display = 'block';
 
         KfxWebSDK.Capture.takePicture(function(imageData) {
             console.info('Image captured successfully:', imageData);

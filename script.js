@@ -26,16 +26,14 @@ document.addEventListener("DOMContentLoaded", function () {
             console.error('Error retrieving default options:', error);
         });
 
-        setTimeout(function() {
-            document.getElementById('cameraContainer').style.display = 'block';
+        document.getElementById('cameraContainer').style.display = 'block';
 
-            KfxWebSDK.Capture.takePicture(function(imageData) {
-                console.info('Image captured successfully:', imageData);
-    
-            }, function(error) {
-                console.error('Error capturing image:', error);
-            });
-        }, 5000);
+        KfxWebSDK.Capture.takePicture(function(imageData) {
+            console.info('Image captured successfully:', imageData);
+
+        }, function(error) {
+            console.error('Error capturing image:', error);
+        });
     });
 
     // Select Button

@@ -4,8 +4,6 @@ document.addEventListener("DOMContentLoaded", function () {
     // Capture image on button click
     document.getElementById('captureButton').addEventListener('click', function() {
 
-        document.getElementById('cameraContainer').style.display = 'block';
-
         // Get default options
         KfxWebSDK.Capture.getDefaultOptions(function(defaultOptions) {
             console.info('Default options retrieved successfully:', defaultOptions);
@@ -28,21 +26,29 @@ document.addEventListener("DOMContentLoaded", function () {
             console.error('Error retrieving default options:', error);
         });
 
-        KfxWebSDK.Capture.takePicture(function(imageData) {
-            console.info('Image captured successfully:', imageData);
+        setTimeout(function() {
+            document.getElementById('cameraContainer').style.display = 'block';
 
-        }, function(error) {
-            console.error('Error capturing image:', error);
-        });
+            KfxWebSDK.Capture.takePicture(function(imageData) {
+                console.info('Image captured successfully:', imageData);
+    
+            }, function(error) {
+                console.error('Error capturing image:', error);
+            });
+        }, 2000);
     });
 
     // Select Button
     document.getElementById('document_select').addEventListener('change', function() {
-    
+
         var selected_value = document.getElementById('document_select').value;
         if (selected_value != 0) {
             document.getElementById('captureButton').style.display = 'block';
         }
 
     });
+
+    // Aspect Ratio 0.628 and padding 5 are incorrect: 
+    // frameAspectRatio: 0.628, 
+    // framePadding: 5, 
 });

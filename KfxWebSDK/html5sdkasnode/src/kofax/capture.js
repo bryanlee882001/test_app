@@ -89,7 +89,7 @@ const Capture = (KfxWebSDK) => {
 		if (typeof callback === 'function') {
 			callback(data);
 		}
-  };
+  	};
 	
 	return {
 		mobileIdCameraOptions:mobileIdCameraOptions,

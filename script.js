@@ -33,6 +33,11 @@
 // };
 
 var options = {
+    containerId: "cameraContainer",
+    preference: "camera",
+    useVideoStream: true,
+    preview: true,
+    framePadding: 10,
     frameAspectRatio: 0.629,
     framePadding: 5,
     frameCornerHeight: 10,

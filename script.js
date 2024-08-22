@@ -96,6 +96,23 @@ function createCapture() {
         KfxWebSDK.Capture.create(defaultOptions, function(createSuccess) {
             console.info('Capture control created successfully, Displaying Camera UI:');
 
+            // Display Kofax Camera UI
+            document.getElementById('cameraContainer').style.display = 'block';
+
+            // Take Picture
+            KfxWebSDK.Capture.takePicture(function(imageData) {
+                console.info('Image captured successfully:', imageData);
+                document.getElementById('debug_message').innerHTML = 'Image captured successfully';
+
+                // Review Image
+                reviewImage(imageData);
+
+            }, function(error) {
+                console.error('Error capturing image:', error);
+                document.getElementById('debug_message').innerHTML = 'Error capturing image: ' + error.message;
+
+            });
+
         }, function(error) {
             console.error('Error creating capture control:', error);
             document.getElementById('debug_message').innerHTML = 'Error creating capture control: ' + error.message;
@@ -105,23 +122,6 @@ function createCapture() {
     }, function(error) {
         console.error('Error retrieving default options:', error);
         document.getElementById('debug_message').innerHTML = 'Error retrieving default options: ' + error.message;
-
-    });
-
-    // Display Kofax Camera UI
-    document.getElementById('cameraContainer').style.display = 'block';
-
-    // Take Picture
-    KfxWebSDK.Capture.takePicture(function(imageData) {
-        console.info('Image captured successfully:', imageData);
-        document.getElementById('debug_message').innerHTML = 'Image captured successfully';
-
-        // Review Image
-        reviewImage(imageData);
-
-    }, function(error) {
-        console.error('Error capturing image:', error);
-        document.getElementById('debug_message').innerHTML = 'Error capturing image: ' + error.message;
 
     });
 };
@@ -157,7 +157,7 @@ function reviewImage(imageData) {
                     console.info('Destroyed Capture, Re-creating Capture');
                     document.getElementById('cameraContainer').style.display = 'none';
 
-                }, function() {
+                }, function(error) {
                     console.error('Error destroying image:', error);
                     document.getElementById('debug_message').innerHTML = 'Error destroying image: ' + error.message;
         

@@ -46,7 +46,7 @@ document.addEventListener("DOMContentLoaded", function () {
         var selected_value = document.getElementById('document_select').value;
         if (selected_value != 0) {
             document.getElementById('captureButton').style.display = 'block';
-            // document.getElementById('debug_message').innerHTML = "Select 'Start Camera' to display Camera UI";
+            document.getElementById('debug_message').innerHTML = "Select 'Start Camera' to display Camera UI";
         }
 
     });
@@ -62,7 +62,7 @@ function createCapture() {
     // Get default options
     KfxWebSDK.Capture.getDefaultOptions(function(defaultOptions) {
         console.info('Default options retrieved successfully:', defaultOptions);
-        // document.getElementById('debug_message').innerHTML = 'Default options retrieved successfully';
+        document.getElementById('debug_message').innerHTML = 'Default options retrieved successfully';
 
         // Modify default options if needed
         defaultOptions.containerId = "cameraContainer";
@@ -85,7 +85,7 @@ function createCapture() {
             defaultOptions.frameAspectRatio = selectedOption.ratio;
 
             console.info(`User selected ${selectedOption.type}!`);
-            // document.getElementById('debug_message').innerHTML = `User selected ${selectedOption.type}!`;
+            document.getElementById('debug_message').innerHTML = `User selected ${selectedOption.type}!`;
         }
 
         console.info('Updated options:', defaultOptions);
@@ -96,13 +96,13 @@ function createCapture() {
 
         }, function(error) {
             console.error('Error creating capture control:', error);
-            // document.getElementById('debug_message').innerHTML = 'Error creating capture control: ' + error.message;
+            document.getElementById('debug_message').innerHTML = 'Error creating capture control: ' + error.message;
             
         });
 
     }, function(error) {
         console.error('Error retrieving default options:', error);
-        // document.getElementById('debug_message').innerHTML = 'Error retrieving default options: ' + error.message;
+        document.getElementById('debug_message').innerHTML = 'Error retrieving default options: ' + error.message;
 
     });
 
@@ -112,14 +112,14 @@ function createCapture() {
     // Take Picture
     KfxWebSDK.Capture.takePicture(function(imageData) {
         console.info('Image captured successfully:', imageData);
-        // document.getElementById('debug_message').innerHTML = 'Image captured successfully';
+        document.getElementById('debug_message').innerHTML = 'Image captured successfully';
 
         // Review Image
-        // reviewImage(imageData);
+        reviewImage(imageData);
 
     }, function(error) {
         console.error('Error capturing image:', error);
-        // document.getElementById('debug_message').innerHTML = 'Error capturing image: ' + error.message;
+        document.getElementById('debug_message').innerHTML = 'Error capturing image: ' + error.message;
 
     });
 };
@@ -141,7 +141,7 @@ function reviewImage(imageData) {
         // Accept Callback
         function() {
             console.info('Accepted Image, Downloading Image', imageData);
-            // document.getElementById('debug_message').innerHTML = 'Select a document to begin';
+            document.getElementById('debug_message').innerHTML = 'Select a document to begin';
 
             // Prepare Image for Download
             var base64Image = convertImageDataToBase64(imageData);
@@ -157,7 +157,7 @@ function reviewImage(imageData) {
 
                 }, function() {
                     console.error('Error destroying image:', error);
-                    // document.getElementById('debug_message').innerHTML = 'Error destroying image: ' + error.message;
+                    document.getElementById('debug_message').innerHTML = 'Error destroying image: ' + error.message;
         
                     // Hide panels
                     document.getElementById('cameraContainer').style.display = 'none';
@@ -168,7 +168,7 @@ function reviewImage(imageData) {
         }, // Retake Callback
         function() {
             console.info('Retake Image', imageData);
-            // document.getElementById('debug_message').innerHTML = 'Retaking Image';
+            document.getElementById('debug_message').innerHTML = 'Retaking Image';
             
             // Take another picture
             document.getElementById('review_container').style.display = 'none';

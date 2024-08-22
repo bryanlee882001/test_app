@@ -71,26 +71,25 @@ function createCapture() {
         defaultOptions.preference = "camera";
         defaultOptions.useVideoStream = true;
         defaultOptions.preview = true;
-        defaultOptions.framePadding = 10;
-        defaultOptions.frameAspectRatio = 1.78;
+        defaultOptions.framePadding = 0;
 
         // Set Aspect Ratio Based on Selections
-        // const aspectRatios = {
-        //     1: { type: 'Check', ratio: 0.46 },
-        //     2: { type: 'MobileId', ratio: 0.629 },
-        //     3: { type: 'Passport', ratio: 0.703 },
-        //     4: { type: 'Credit Card', ratio: 0.623 },
-        //     5: { type: 'Pay Bill' , ratio: 0.615 }
-        // };
+        const aspectRatios = {
+            1: { type: 'Check', ratio: 0.46 },
+            2: { type: 'MobileId', ratio: 0.629 },
+            3: { type: 'Passport', ratio: 0.703 },
+            4: { type: 'Credit Card', ratio: 0.623 },
+            5: { type: 'Pay Bill' , ratio: 0.615 }
+        };
 
-        // const select = document.getElementById('document_select');
-        // const selectedOption = aspectRatios[select.value];
-        // if (selectedOption) {
-        //     defaultOptions.frameAspectRatio = selectedOption.ratio;
+        const select = document.getElementById('document_select');
+        const selectedOption = aspectRatios[select.value];
+        if (selectedOption) {
+            defaultOptions.frameAspectRatio = selectedOption.ratio;
 
-        //     console.info(`User selected ${selectedOption.type}!`);
-        //     document.getElementById('debug_message').innerHTML = `User selected ${selectedOption.type}!`;
-        // }
+            console.info(`User selected ${selectedOption.type}!`);
+            document.getElementById('debug_message').innerHTML = `User selected ${selectedOption.type}!`;
+        }
 
         console.info('Updated options:', defaultOptions);
         

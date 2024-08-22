@@ -72,7 +72,7 @@ function createCapture() {
         defaultOptions.useVideoStream = true;
         defaultOptions.preview = true;
         defaultOptions.framePadding = 10;
-        defaultOptions.frameAspectRatio = 0;
+        defaultOptions.frameAspectRatio = 1.78;
 
         // Set Aspect Ratio Based on Selections
         // const aspectRatios = {

@@ -37,7 +37,7 @@ function downloadImage(base64Image, filename) {
 };
 
 /**
- * A function that creates the filename for downloaded images
+ * A helper function that creates the filename for downloaded images
  * 
  * @returns a filename in a string format
  */
@@ -57,3 +57,17 @@ function getFileName() {
     return documentType + '_' + dateTime + '.jpg';
 
 };
+
+/**
+ * A helper function that creates the filename for downloaded images
+ * 
+ * @returns a filename in a string format
+ */
+function validateOptions(options) {
+    if (typeof options.frameAspectRatio !== 'number' || options.frameAspectRatio <= 0) {
+        throw new Error(`Invalid aspect ratio: ${options.frameAspectRatio}`);
+    }
+    if (typeof options.framePadding !== 'number' || options.framePadding < 0) {
+        throw new Error(`Invalid padding: ${options.framePadding}`);
+    }
+}

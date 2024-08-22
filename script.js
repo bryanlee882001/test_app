@@ -1,35 +1,146 @@
-// Global var for default options
-var globalOptions =  { 
-    useTargetFrameCrop: false, 
-    frameAspectRatio: 0.628, 
-    framePadding: 5, 
-    frameCornerHeight: 15, 
-    frameCornerWidth: 70, 
-    frameCornerColor: '#00FF00', 
-    resolution:KfxWebSDK.resolution.RES_FULL_HD,  
-    downscaleSize: 2, 
-    outOfFrameTransparency: 0.5, 
-    showEdges: false, 
-    edgesColor: '#FFFF00', 
-    edgesWidth: 4, 
-    enableFlashCapture: false, 
-    guidanceSize: 150, 
-    criteria: { 
-          captureTimeout: 1700, 
-          centerToleranceFraction: 0.15,
-          longAxisThreshold: 85, 
-          shortAxisThreshold: 60, 
-          maxFillFraction: 1.8,
-          minFillFraction: 0.65, 
-          turnSkewAngleTolerance: 10, 
-          pitchThreshold: 15, 
-          rollThreshold: 15 
-      }, 
-      lookAndFeel: { 
-        showTapToDismissMessage: true, 
-        forceCapture: 10, 
-        gallery: true 
-      } 
+// // Global var for default options
+// var globalOptions =  { 
+//     useTargetFrameCrop: false, 
+//     frameAspectRatio: 0.628, 
+//     framePadding: 5, 
+//     frameCornerHeight: 15, 
+//     frameCornerWidth: 70, 
+//     frameCornerColor: '#00FF00', 
+//     resolution:KfxWebSDK.resolution.RES_FULL_HD,  
+//     downscaleSize: 2, 
+//     outOfFrameTransparency: 0.5, 
+//     showEdges: false, 
+//     edgesColor: '#FFFF00', 
+//     edgesWidth: 4, 
+//     enableFlashCapture: false, 
+//     guidanceSize: 150, 
+//     criteria: { 
+//           captureTimeout: 1700, 
+//           centerToleranceFraction: 0.15,
+//           longAxisThreshold: 85, 
+//           shortAxisThreshold: 60, 
+//           maxFillFraction: 1.8,
+//           minFillFraction: 0.65, 
+//           turnSkewAngleTolerance: 10, 
+//           pitchThreshold: 15, 
+//           rollThreshold: 15 
+//       }, 
+//       lookAndFeel: { 
+//         showTapToDismissMessage: true, 
+//         forceCapture: 10, 
+//         gallery: true 
+//       } 
+// };
+
+var options = {
+    frameAspectRatio: 0.629,
+    framePadding: 5,
+    frameCornerHeight: 10,
+	   resolution: KfxWebSDK.resolution.RES_FULL_HD,
+	   downscaleSize: 2,
+    frameCornerWidth: 60,
+    frameCornerColor: '#00FF00',
+    outOfFrameTransparency: 0.5,
+    iconTransparency: 0.5,
+    showEdges: false,
+    edgesColor: '#FFFF00',
+    edgesWidth: 4,
+    guidanceSize: 150,
+	   guidanceOrientation: KfxWebSDK.orientation.PORTRAIT,
+    useTargetFrameCrop: false,
+    drawInstructionsAsText: false,
+	   instructionsAsTextOrientation: KfxWebSDK.orientation.PORTRAIT,
+    instructionsTextColor: '#FFFFFF',
+    instructionsBackgroundColor: '#000000',
+    galleryButtonAccessibilityText: "Gallery",
+    forceCaptureButtonAccessibilityText: "Force capture",
+    tapToDismissInstruction: {
+         visible: true,
+         text: "Tap to Dismiss",
+         accessibilityText: "Tap to Dismiss",
+  		orientation: KfxWebSDK.orientation.LANDSCAPE
+    },
+    fitDocumentInstruction: {
+         visible: true,
+         text: "Fit document in the frame",
+         accessibilityText: "Fit document in the frame"
+    },
+    zoomInInstruction: {
+         visible: true,
+         text: "Move closer",
+         accessibilityText: "Move Closer"
+    },
+    zoomOutInstruction: {
+         visible: true,
+         text: "Move back",
+         accessibilityText: "Move back"
+    },
+    centerDocumentInstruction: {
+         visible: true,
+         text: "Center the document",
+         accessibilityText: "Center the document"
+    },
+    rotateDeviceInstruction: {
+         visible: true,
+         text: "Rotate device",
+         accessibilityText: "Rotate device"
+    },
+    holdDeviceLevelInstruction: {
+         visible: true,
+         text: "Hold device level",
+         accessibilityText: "Hold device level"
+    },
+    holdSteadyInstruction: {
+         visible: true,
+         text: "Hold steady",
+         accessibilityText: "Hold steady"
+    },
+    doneInstruction: {
+         visible: true,
+         text: "Done",
+         accessibilityText: "Done"
+    },
+    motionPermissionInstruction: {
+         visible: false,
+         text: "Tap to give device motion and orientation access",
+         accessibilityText: "Tap to give device motion and orientation access"
+    },
+    capturePauseInstruction: {
+         visible: true,
+         text: "Capture is Paused. Tap to Continue.",
+         accessibilityText: "Capture is Paused. Tap to Continue.",
+    },
+    targetFrameBackground: "",
+    targetFrameSuccessBackground: "",
+    enableAutoCapture: true,
+    enableFlashCapture: false,
+    criteria: {
+        minFillFraction: 0.65,
+        maxFillFraction: 1.8,
+        longAxisThreshold: 85,
+        shortAxisThreshold: 60,
+        centerToleranceFraction: 0.19,
+        captureTimeout: 1700,
+        turnSkewAngleTolerance: 10,
+        pitchThreshold: 15,
+        rollThreshold: 15
+    },
+    lookAndFeel: {
+        documentSample: 'http://example.com/images/document_sample.jpg',
+		   showTapToDismissMessage: true,
+        forceCapture: 10,
+        documentSampleTimeout:6,
+        gallery: true
+    },
+    acceptButton: { 
+       text: "Accept" 
+    },
+    retakeButton: { 
+       text: "Retake" 
+    },
+    nextButton: { 
+       text: "Next" 
+    }
 };
 
 /**
@@ -71,7 +182,7 @@ function createCapture() {
         defaultOptions.preference = "camera";
         defaultOptions.useVideoStream = true;
         defaultOptions.preview = true;
-        defaultOptions.framePadding = 0;
+        defaultOptions.framePadding = 10;
 
         // Set Aspect Ratio Based on Selections
         const aspectRatios = {
@@ -94,7 +205,7 @@ function createCapture() {
         console.info('Updated options:', defaultOptions);
         
         // Initialize the capture control with default options
-        KfxWebSDK.Capture.create(defaultOptions, function(createSuccess) {
+        KfxWebSDK.Capture.create(options, function(createSuccess) {
             console.info('Capture control created successfully, Displaying Camera UI:');
 
             // Display Kofax Camera UI
